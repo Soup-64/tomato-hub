@@ -1,0 +1,58 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:application="clr-namespace:avalonia_rider_test"
+        xmlns:global="clr-namespace:"
+        Width="1024"
+        Height="600"
+        WindowState="Normal"
+        SystemDecorations="None"
+        x:Class="avalonia_rider_test.MainWindow"
+        FontSize="18"
+        FontFamily="Noto Sans"
+        FontWeight="Normal"
+        SizeToContent="Manual"
+        
+        Title="avalonia_rider_test">
+
+
+    <!-- make back button and such something on a top bar, 
+    with some other info to make carousel traversals less fuck-y -->
+
+    <Grid 
+          ColumnDefinitions="*"
+          RowDefinitions="50,*">
+        
+        <Grid
+            ColumnDefinitions="200,*,200"
+            RowDefinitions="*">
+            <Button
+                Grid.Column="0"
+                Name="Back"
+                Content="Back"
+                Click="backClick"
+                Width="200"
+                Margin="5">
+            </Button>
+            
+            <TextBox
+                Grid.Column="1"
+                IsEnabled="False"
+                
+                Name="DateTime"
+                Text=""
+                TextAlignment="Center"
+                FontSize="24">
+            </TextBox>
+        </Grid>
+
+        <Carousel
+            x:Name="Switcher"
+            Grid.Column="0"
+            Grid.Row="1">
+            <application:MainMenu />
+            <application:WeatherMenu />
+        </Carousel>
+    </Grid>
+</Window>

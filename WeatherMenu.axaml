@@ -1,0 +1,51 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="avalonia_rider_test.WeatherMenu">
+
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="100,50,*">
+
+        <!-- big temp and such should grab obs data not forecast -->
+        <Grid ColumnDefinitions="*,*">
+            <TextBox
+                Name="bigTemp"
+                IsEnabled="False"
+                FontSize="42">
+                XX°
+            </TextBox>
+            <TextBox
+                Name="Forecast"
+                Grid.Column="1"
+                IsEnabled="False">
+                some forecast text from api
+            </TextBox>
+        </Grid>
+        <TextBox
+            Name="Observations"
+            Grid.Row="1" 
+            IsEnabled="False"
+            >
+            some detailed info here on humidity and such
+        </TextBox>
+        <TabControl Grid.Row="2">
+            <TabItem Header="This week">
+                <Grid
+                    Grid.Row="1"
+                    ColumnDefinitions="*,*,*,*,*,*,*"
+                    RowDefinitions="50,*,*"
+                    ShowGridLines="True">
+                    <!-- put the actual weather data and stuff here -->
+                    
+                </Grid>
+            </TabItem>
+            <TabItem Header="Later today">
+                <TextBox IsEnabled="False">haha this is not finished yet</TextBox>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</UserControl>

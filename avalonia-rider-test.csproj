@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+    <ItemGroup>
+        <None Remove=".gitignore" />
+        <None Update="output.wav">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Avalonia" Version="0.10.17" />
+        <PackageReference Include="Avalonia.Desktop" Version="0.10.17" />
+        <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="0.10.17" />
+        <PackageReference Include="Citrus.Avalonia" Version="1.6.1" />
+        <PackageReference Include="netcoreaudio" Version="1.7.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="WeatherMenu.axaml.cs">
+        <DependentUpon>WeatherMenu.axaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+</Project>
