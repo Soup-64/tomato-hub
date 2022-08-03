@@ -4,55 +4,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:application="clr-namespace:avalonia_rider_test"
         xmlns:global="clr-namespace:"
+        
         Position="0,0"
         Width="1024"
         Height="600"
         WindowState="Normal"
         SystemDecorations="None"
+        
         x:Class="avalonia_rider_test.MainWindow"
         FontSize="18"
         FontFamily="Noto Sans"
         FontWeight="Normal"
         SizeToContent="Manual"
-        
+
         Title="avalonia_rider_test">
-    
-    
+
+
     <!-- make back button and such something on a top bar, 
     with some other info to make carousel traversals less fuck-y -->
 
-    <Grid 
-          ColumnDefinitions="*"
-          RowDefinitions="50,*">
-        
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="50,*">
+
         <Grid
             ColumnDefinitions="200,*,200"
             RowDefinitions="*"
             Background="#283D3B">
             <Button
                 Foreground="#EDDDD4"
-                Background="#283D3B"
+                Background="#C44536"
                 Grid.Column="0"
                 Name="Back"
                 Content="Back"
                 Click="backClick"
                 Width="200"
+                FontSize="20"
                 Margin="0">
             </Button>
-            
+
             <TextBox
                 Foreground="#EDDDD4"
                 Grid.Column="1"
                 IsEnabled="False"
-                
+
                 Name="DateTime"
                 Text=""
-                
+
                 VerticalContentAlignment="Center"
                 TextAlignment="Center"
                 Height="50"
                 FontSize="28">
             </TextBox>
+
+            <Button Foreground="#EDDDD4"
+                    FontSize="20"
+                    Background="#C44536"
+                    Grid.Column="2"
+                    Click="sleepClick">
+                Sleep
+            </Button>
         </Grid>
 
         <Carousel

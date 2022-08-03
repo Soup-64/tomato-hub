@@ -10,6 +10,7 @@
             <Setter Property="BorderBrush" Value="#C44536"/>
             <Setter Property="BorderThickness" Value="5"/>
             <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="Margin" Value="25"/>
         </Style>
     </UserControl.Styles>
     
@@ -24,7 +25,6 @@
             Name="Weather"
             Click="weather_Click"
             ClickMode="Release"
-            Margin="25"
             
             Content="Weather">
         </Button>
@@ -35,7 +35,6 @@
             Name="Sound"
             Click="button_Click"
             ClickMode="Release"
-            Margin="25"
 
             Content="Sound Test">
         </Button>
@@ -43,11 +42,8 @@
         <Button
             Grid.Column="1"
             Grid.Row="2"
-            DockPanel.Dock="Bottom"
             Name="Quit"
             Click="quit_Click"
-            Margin="25"
-            ClickMode="Release"
 
             Content="Restart Application">
         </Button>

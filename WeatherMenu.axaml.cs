@@ -15,9 +15,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
     {
         initializeComponent();
     }
-
-    public string someproperty = "hi";
-
+    
     private Task<Weather[]> weatherData;
     private Timer t;
 
@@ -27,7 +25,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
         this.IsVisible = active;
         if (active) doWeatherUpdate(null, null);
     }
-    
+
     private void initializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
@@ -38,20 +36,26 @@ public partial class WeatherMenu : UserControl, ActiveControl
         //TODO: fill UI with weatherData stuff
         //TODO: periodically download new data
 
-        t = new(5000); //periodic data check
+        t = new(60000); //periodic data check
         t.Elapsed += doWeatherUpdate;
         t.Enabled = false;
     }
 
     private void doWeatherUpdate(object? sender, ElapsedEventArgs e)
     {
+        if (sender != null)
+        {
+            weatherData = downloadWeather();
+            weatherData.Wait(); //wait so code isn't immediately trying to load data from incomplete data
+        }
+
         Dispatcher.UIThread.Post(() =>
         {
             TextBox bigTemp = this.Find<TextBox>("bigTemp");
 
             if (weatherData.IsCompletedSuccessfully)
             {
-                try
+                try //because of one weird random crash that was probably a corrupted upload
                 {
                     bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
                 }
@@ -75,7 +79,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
         //rockport: https://api.weather.gov/gridpoints/BOX/84,93/forecast
 
         Console.WriteLine("Downloading forecast data");
-        
+
         string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/BOX/84,93/forecast");
         string simpleJson = await getjsonStream("https://api.weather.gov/gridpoints/BOX/84,93/forecast/hourly");
 
@@ -88,7 +92,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
         // if (hourlyWeather != null) Console.WriteLine(hourlyWeather.properties.periods[0].temperature);
 
         Console.WriteLine("Downloading observation data");
-        
+
         //TODO: put obs downloads here
 
         if (hourlyWeather == null || intervalWeather == null)

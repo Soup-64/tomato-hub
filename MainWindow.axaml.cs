@@ -1,7 +1,9 @@
+using System.Diagnostics;
 using System.Globalization;
 using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
@@ -47,6 +49,14 @@ namespace avalonia_rider_test
             ((ActiveControl) switcher.SelectedItem!).changeActive(false);
             switcher.SelectedIndex = 0;
             ((ActiveControl) switcher.SelectedItem!).changeActive(true);
+        }
+
+        private void sleepClick(object? sender, RoutedEventArgs e)
+        {
+            Process p = new();
+            p.StartInfo.FileName = "/home/auto/sleep.sh";
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
         }
     }
 }
