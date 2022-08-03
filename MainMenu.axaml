@@ -4,11 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="avalonia_rider_test.MainMenu">
-
+    
+    <UserControl.Styles>
+        <Style Selector="Button">
+            <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
+    </UserControl.Styles>
+    
     <Grid
         ColumnDefinitions="*,*,*"
         RowDefinitions="*,*,*"
-        >
+        Background="#EDDDD4">
 
         <Button
             Grid.Column="0"
@@ -41,7 +49,7 @@
             Margin="25"
             ClickMode="Release"
 
-            Content="Quit Application">
+            Content="Restart Application">
         </Button>
     </Grid>
 

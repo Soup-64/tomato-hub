@@ -1,6 +1,6 @@
 the account the thing runs under should autologin, and the file structure is like so:
-/home/autox.sh
-/home/restart.sh (TODO: get it to work from ssh)
-/home/FTP/files/linux-arm64/ (the actual location of the built binaries)
+/home/auto/autox.sh
+/home/auto/restart.sh
+~/FTP/files/linux-arm64/ (the actual location of the built binaries)
 ensure dotnet is installed
 ensure aplay is installed and audio is properly configured

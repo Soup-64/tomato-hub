@@ -2,9 +2,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
              x:Class="avalonia_rider_test.WeatherMenu">
+    
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
+        <Style Selector="TabItem">
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#EDDDD4"/>
+        </Style>
+        <Style Selector="TabItem:selected">
+            <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="Foreground" Value="#C44536"/>
 
+        </Style>
+        <Style Selector="TabControl WrapPanel">
+            <Setter Property="Background" Value="#C44536"/>
+        </Style>
+        <Style Selector="TabControl">
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
+    </UserControl.Styles>
+    
     <Grid
         ColumnDefinitions="*"
         RowDefinitions="100,50,*">
@@ -12,12 +34,18 @@
         <!-- big temp and such should grab obs data not forecast -->
         <Grid ColumnDefinitions="*,*">
             <TextBox
+                BorderBrush="#C44536"
+                BorderThickness="3"
                 Name="bigTemp"
                 IsEnabled="False"
-                FontSize="42">
+                FontSize="42"
+                TextAlignment="Left"
+                Padding="10">
                 XX°
             </TextBox>
             <TextBox
+                BorderBrush="#C44536"
+                BorderThickness="3"
                 Name="Forecast"
                 Grid.Column="1"
                 IsEnabled="False">
@@ -25,25 +53,47 @@
             </TextBox>
         </Grid>
         <TextBox
+            BorderBrush="#C44536"
+            BorderThickness="3"
             Name="Observations"
             Grid.Row="1" 
             IsEnabled="False"
             >
             some detailed info here on humidity and such
         </TextBox>
-        <TabControl Grid.Row="2">
+        <TabControl Grid.Row="2" >
             <TabItem Header="This week">
-                <Grid
+                <StackPanel
+                    HorizontalAlignment="Center"
+                    Spacing="5"
+                    Margin="5"
                     Grid.Row="1"
-                    ColumnDefinitions="*,*,*,*,*,*,*"
-                    RowDefinitions="50,*,*"
-                    ShowGridLines="True">
+                    Orientation="Horizontal">
                     <!-- put the actual weather data and stuff here -->
+                    <StackPanel.Styles>
+                        <Style Selector="TextBox">
+                            <Setter Property="BorderBrush" Value="#283D3B"/>
+                            <Setter Property="BorderThickness" Value="3"/>
+                            <Setter Property="TextAlignment" Value="Center"/>
+                            <Setter Property="Padding" Value="15"/>
+                            <Setter Property="FontSize" Value="16"/>
+                            <Setter Property="TextWrapping" Value="Wrap"/>
+                            <Setter Property="IsEnabled" Value="false"/>
+                            <Setter Property="Width" Value="140"/>
+                        </Style>
+                    </StackPanel.Styles>
                     
-                </Grid>
+                    <TextBox> test text</TextBox>
+                    <TextBox> test text</TextBox>
+                    <TextBox> test text</TextBox>
+                    <TextBox> test text</TextBox>
+                    <TextBox> test text</TextBox>
+                    <TextBox> test text</TextBox>
+                    <TextBox> test text</TextBox>
+                </StackPanel>
             </TabItem>
             <TabItem Header="Later today">
-                <TextBox IsEnabled="False">haha this is not finished yet</TextBox>
+                <TextBox IsEnabled="False" Margin="25">haha this is not finished yet</TextBox>
             </TabItem>
         </TabControl>
 

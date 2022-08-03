@@ -51,7 +51,14 @@ public partial class WeatherMenu : UserControl, ActiveControl
 
             if (weatherData.IsCompletedSuccessfully)
             {
-                bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
+                try
+                {
+                    bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
+                }
+                catch (NullReferenceException e)
+                {
+                    Console.WriteLine(e.Message);
+                }
             }
             else
             {

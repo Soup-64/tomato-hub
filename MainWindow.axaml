@@ -4,6 +4,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:application="clr-namespace:avalonia_rider_test"
         xmlns:global="clr-namespace:"
+        Position="0,0"
         Width="1024"
         Height="600"
         WindowState="Normal"
@@ -15,8 +16,8 @@
         SizeToContent="Manual"
         
         Title="avalonia_rider_test">
-
-
+    
+    
     <!-- make back button and such something on a top bar, 
     with some other info to make carousel traversals less fuck-y -->
 
@@ -26,24 +27,31 @@
         
         <Grid
             ColumnDefinitions="200,*,200"
-            RowDefinitions="*">
+            RowDefinitions="*"
+            Background="#283D3B">
             <Button
+                Foreground="#EDDDD4"
+                Background="#283D3B"
                 Grid.Column="0"
                 Name="Back"
                 Content="Back"
                 Click="backClick"
                 Width="200"
-                Margin="5">
+                Margin="0">
             </Button>
             
             <TextBox
+                Foreground="#EDDDD4"
                 Grid.Column="1"
                 IsEnabled="False"
                 
                 Name="DateTime"
                 Text=""
+                
+                VerticalContentAlignment="Center"
                 TextAlignment="Center"
-                FontSize="24">
+                Height="50"
+                FontSize="28">
             </TextBox>
         </Grid>
 
