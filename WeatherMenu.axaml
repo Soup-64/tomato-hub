@@ -46,7 +46,9 @@
             <TextBox
                 BorderBrush="#C44536"
                 BorderThickness="3"
+                TextWrapping="Wrap"
                 Name="Forecast"
+                FontSize="14"
                 Grid.Column="1"
                 IsEnabled="False">
                 some forecast text from api
@@ -54,8 +56,9 @@
         </Grid>
         <TextBox
             BorderBrush="#C44536"
-            BorderThickness="3"
+            BorderThickness="0"
             Name="Observations"
+            TextWrapping="Wrap"
             Grid.Row="1" 
             IsEnabled="False"
             >
@@ -83,13 +86,13 @@
                         </Style>
                     </StackPanel.Styles>
                     
-                    <TextBox> test text</TextBox>
-                    <TextBox> test text</TextBox>
-                    <TextBox> test text</TextBox>
-                    <TextBox> test text</TextBox>
-                    <TextBox> test text</TextBox>
-                    <TextBox> test text</TextBox>
-                    <TextBox> test text</TextBox>
+                    <TextBox Name="0"> test text</TextBox>
+                    <TextBox Name="1"> test text</TextBox>
+                    <TextBox Name="2">test text</TextBox>
+                    <TextBox Name="3"> test text</TextBox>
+                    <TextBox Name="4"> test text</TextBox>
+                    <TextBox Name="5"> test text</TextBox>
+                    <TextBox Name="6"> test text</TextBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Later today">

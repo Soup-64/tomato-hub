@@ -57,7 +57,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
             {
                 try //because of one weird random crash that was probably a corrupted upload
                 {
-                    bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
+                    updateInterface();
                 }
                 catch (NullReferenceException e)
                 {
@@ -71,6 +71,24 @@ public partial class WeatherMenu : UserControl, ActiveControl
         }, DispatcherPriority.Background);
     }
 
+    private void updateInterface()
+    {
+        TextBox bigTemp = this.Find<TextBox>("bigTemp");
+        TextBox forecastNow = this.Find<TextBox>("Forecast");
+        TextBox[] forecast = new TextBox[7];
+        for (int i = 0; i < 7; i ++)
+        {
+            forecast[i] = this.Find<TextBox>($"{i}");
+            forecast[i].Text = weatherData.Result[0].properties.periods[i * 2].name + "\n";
+            forecast[i].Text += weatherData.Result[0].properties.periods[i * 2].temperature + "\u00B0 \n";
+            forecast[i].Text += weatherData.Result[0].properties.periods[i * 2].windSpeed + " ";
+            forecast[i].Text += weatherData.Result[0].properties.periods[i * 2].windDirection;
+        }
+
+        forecastNow.Text = weatherData.Result[0].properties.periods[0].detailedForecast;
+        bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
+    }
+
 
     private static async Task<Weather[]> downloadWeather()
     {
@@ -78,10 +96,11 @@ public partial class WeatherMenu : UserControl, ActiveControl
         //home: https://api.weather.gov/gridpoints/GRR/46,46/forecast
         //rockport: https://api.weather.gov/gridpoints/BOX/84,93/forecast
 
+#if !DEBUG
         Console.WriteLine("Downloading forecast data");
-
-        string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/BOX/84,93/forecast");
-        string simpleJson = await getjsonStream("https://api.weather.gov/gridpoints/BOX/84,93/forecast/hourly");
+#endif
+        string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/GRR/46,46/forecast");
+        string simpleJson = await getjsonStream("https://api.weather.gov/gridpoints/GRR/46,46/forecast/hourly");
 
         //waits are done in the same area so both grabs occur at the same time
         Weather? intervalWeather = JsonConvert.DeserializeObject<Weather>(detailedJson); //stores interval stuff
@@ -100,8 +119,10 @@ public partial class WeatherMenu : UserControl, ActiveControl
             throw new HttpRequestException("Failed to retrieve weatherData data from NOAA API");
         }
 
+#if !DEBUG
         Console.WriteLine("Completed Data fetch!");
-
+#endif
+        
         return new[] {intervalWeather, hourlyWeather}; //by time of day interval, and hourly
         //TODO: write class and run downloads for observation data
         //TODO: add some conf ability for setting location, could be presets or from IP
