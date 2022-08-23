@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
@@ -52,5 +53,12 @@ public class MainMenu : UserControl, ActiveControl
             switcher.SelectedIndex = 1;
             ((ActiveControl) switcher.SelectedItem!).changeActive(true);
         }
+    }
+
+    private void Wifi_OnClick(object? sender, RoutedEventArgs e)
+    {
+        Button btn = this.Find<Button>("wifi");
+        String ip = Dns.GetHostAddresses(Dns.GetHostName())[1].ToString();
+        btn.Content = ip;
     }
 }

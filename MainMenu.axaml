@@ -47,6 +47,16 @@
 
             Content="Restart Application">
         </Button>
+        
+        <Button
+            Grid.Column="1"
+            Grid.Row="0"
+            Name="wifi"
+            Click="Wifi_OnClick"
+            
+            Content="ip here"
+            >
+        </Button>
     </Grid>
 
 </UserControl>
