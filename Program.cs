@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using Avalonia;
 using NetCoreAudio;
 
@@ -16,9 +17,14 @@ namespace avalonia_rider_test
 #if !DEBUG
             //this is because the rpi apparently only inits audio streams fully when something actually tries to play, so by
             //forcing audio at launch we can get audio ready so first sound effect isn't missed
+
             Player fxWav = new Player();
             fxWav.Play("./output.wav");
-            Console.WriteLine("test");
+            
+            Process p = new();
+            p.StartInfo.FileName = "/home/auto/sleep.sh";
+            p.StartInfo.CreateNoWindow = true;
+            p.Start();
 #endif
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }

@@ -99,8 +99,8 @@ public partial class WeatherMenu : UserControl, ActiveControl
 #if !DEBUG
         Console.WriteLine("Downloading forecast data");
 #endif
-        string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/GRR/46,46/forecast");
-        string simpleJson = await getjsonStream("https://api.weather.gov/gridpoints/GRR/46,46/forecast/hourly");
+        string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/MQT/114,95/forecast");
+        string simpleJson = await getjsonStream("https://api.weather.gov/gridpoints/MQT/114,95/forecast/hourly");
 
         //waits are done in the same area so both grabs occur at the same time
         Weather? intervalWeather = JsonConvert.DeserializeObject<Weather>(detailedJson); //stores interval stuff
@@ -110,7 +110,6 @@ public partial class WeatherMenu : UserControl, ActiveControl
         // if (intervalWeather != null) Console.WriteLine(intervalWeather.properties.periods[0].temperature);
         // if (hourlyWeather != null) Console.WriteLine(hourlyWeather.properties.periods[0].temperature);
 
-        Console.WriteLine("Downloading observation data");
 
         //TODO: put obs downloads here
 

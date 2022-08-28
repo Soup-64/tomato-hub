@@ -56,6 +56,7 @@ namespace avalonia_rider_test
             Process p = new();
             p.StartInfo.FileName = "/home/auto/sleep.sh";
             p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.Arguments = "sleep";
             p.Start();
         }
     }

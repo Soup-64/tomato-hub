@@ -2,6 +2,10 @@
 
 export DISPLAY=:0
 xset s off
+xset s -dpms
 xset s noblank
-xset s activate
-unclutter -idle 0.00 -root &
+if [ "$1" = "sleep" ];
+then
+        xset s activate
+        unclutter -idle 0.00 -root &
+fi
