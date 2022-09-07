@@ -93,8 +93,8 @@ public partial class WeatherMenu : UserControl, ActiveControl
     private static async Task<Weather[]> downloadWeather()
     {
         //houghton: "https://api.weather.gov/gridpoints/MQT/114,95/forecast (/hourly)
-        //home: https://api.weather.gov/gridpoints/GRR/46,46/forecast
-        //rockport: https://api.weather.gov/gridpoints/BOX/84,93/forecast
+        //currently just grabs weather data for this hard coded location until I figure 
+        //out a location selection menu, which means more api calls to noaa to translate coordinates to a gridpoint station
 
 #if !DEBUG
         Console.WriteLine("Downloading forecast data");
