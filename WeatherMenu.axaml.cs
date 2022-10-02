@@ -96,7 +96,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
         //currently just grabs weather data for this hard coded location until I figure 
         //out a location selection menu, which means more api calls to noaa to translate coordinates to a gridpoint station
 
-#if !DEBUG
+#if DEBUG
         Console.WriteLine("Downloading forecast data");
 #endif
         string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/MQT/114,95/forecast");
@@ -118,7 +118,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
             throw new HttpRequestException("Failed to retrieve weatherData data from NOAA API");
         }
 
-#if !DEBUG
+#if DEBUG
         Console.WriteLine("Completed Data fetch!");
 #endif
         

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avalonia-rider-test", "avalonia-rider-test.csproj", "{3D9DF9E6-B238-43A2-8815-0AF77B25F7F4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "avalonia_rider_test", "avalonia_rider_test.csproj", "{3D9DF9E6-B238-43A2-8815-0AF77B25F7F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

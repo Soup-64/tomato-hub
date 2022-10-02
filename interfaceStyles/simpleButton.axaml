@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="avalonia_rider_test.simpleButton">
+    <UserControl.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="BorderThickness" Value="5"/>
+        </Style>
+        <Style Selector="StackPanel">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="Spacing" Value="0"/>
+        </Style>
+        <Style Selector="Grid">
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
+        <Style Selector="Button">
+            <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
+    </UserControl.Styles>
+    
+    <Grid RowDefinitions="40,70" ColumnDefinitions="256,256" Name="device1">
+        <TextBox
+            Name="name"
+            Text="button name">
+        </TextBox>
+        <TextBox Grid.Row="0" Grid.Column="1"
+                 Name="status"
+                 Text="device status">
+        </TextBox>
+        <Button Grid.Row="1" Grid.Column="0"
+                Content="On">
+        </Button>
+        <Button Grid.Row="1" Grid.Column="1"
+                Content="Off">
+        </Button>
+    </Grid>
+    
+</UserControl>

@@ -6,7 +6,7 @@ rm -r ../linux-arm64/*
 if dotnet publish -c Release -r linux-arm64 -o ../linux-arm64/ -p:PublishTrimmed=true -p:PublishSingleFile=true;
 then
   #remove junk file, not needed
-  rm ../linux-arm64/avalonia-rider-test.pdb
+  rm ../linux-arm64/avalonia_rider_test.pdb
   scp -r ../linux-arm64/ auto@"$1":/home/auto/FTP/files/
   #TODO: setup system to reload program on pi instead of rebooting the thing
   exit 0

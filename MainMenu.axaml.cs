@@ -61,4 +61,14 @@ public class MainMenu : UserControl, ActiveControl
         String ip = Dns.GetHostAddresses(Dns.GetHostName())[1].ToString();
         btn.Content = ip;
     }
+
+    private void Smarts_OnClick(object? sender, RoutedEventArgs e)
+    {
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            Carousel switcher = desktop.MainWindow.Find<Carousel>("Switcher");
+            ((ActiveControl) switcher.SelectedItem!).changeActive(false);
+            switcher.SelectedIndex = 2;
+            ((ActiveControl) switcher.SelectedItem!).changeActive(true);
+        }    }
 }

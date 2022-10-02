@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:application="clr-namespace:avalonia_rider_test"
+        mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
         xmlns:global="clr-namespace:"
         
         Position="0,0"
@@ -72,6 +73,7 @@
             Grid.Row="1">
             <application:MainMenu />
             <application:WeatherMenu />
+            <application:SmartMenu />
         </Carousel>
     </Grid>
 </Window>
