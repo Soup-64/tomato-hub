@@ -34,9 +34,9 @@ public partial class WeatherMenu : UserControl, ActiveControl
 
 
         //TODO: fill UI with weatherData stuff
-        //TODO: periodically download new data
+        //TODO: periodically download new NodeData
 
-        t = new(60000); //periodic data check
+        t = new(60000); //periodic NodeData check
         t.Elapsed += doWeatherUpdate;
         t.Enabled = false;
     }
@@ -46,7 +46,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
         if (sender != null)
         {
             weatherData = downloadWeather();
-            weatherData.Wait(); //wait so code isn't immediately trying to load data from incomplete data
+            weatherData.Wait(); //wait so code isn't immediately trying to load NodeData from incomplete NodeData
         }
 
         Dispatcher.UIThread.Post(() =>
@@ -61,7 +61,12 @@ public partial class WeatherMenu : UserControl, ActiveControl
                 }
                 catch (NullReferenceException e)
                 {
-                    Console.WriteLine(e.Message);
+                    #if DEBUG
+                        Console.WriteLine(e.Message);
+                        Console.WriteLine(weatherData.Result[0]);
+                        Console.WriteLine(weatherData.Result[1]);
+                    #endif
+                    bigTemp.Text = "unknown NodeData error";
                 }
             }
             else
@@ -93,11 +98,11 @@ public partial class WeatherMenu : UserControl, ActiveControl
     private static async Task<Weather[]> downloadWeather()
     {
         //houghton: "https://api.weather.gov/gridpoints/MQT/114,95/forecast (/hourly)
-        //currently just grabs weather data for this hard coded location until I figure 
+        //currently just grabs weather NodeData for this hard coded location until I figure 
         //out a location selection menu, which means more api calls to noaa to translate coordinates to a gridpoint station
 
 #if DEBUG
-        Console.WriteLine("Downloading forecast data");
+        Console.WriteLine("Downloading forecast NodeData");
 #endif
         string detailedJson = await getjsonStream("https://api.weather.gov/gridpoints/MQT/114,95/forecast");
         string simpleJson = await getjsonStream("https://api.weather.gov/gridpoints/MQT/114,95/forecast/hourly");
@@ -115,15 +120,15 @@ public partial class WeatherMenu : UserControl, ActiveControl
 
         if (hourlyWeather == null || intervalWeather == null)
         {
-            throw new HttpRequestException("Failed to retrieve weatherData data from NOAA API");
+            throw new HttpRequestException("Failed to retrieve weatherData NodeData from NOAA API");
         }
 
 #if DEBUG
-        Console.WriteLine("Completed Data fetch!");
+        Console.WriteLine("Completed NodeData fetch!");
 #endif
         
         return new[] {intervalWeather, hourlyWeather}; //by time of day interval, and hourly
-        //TODO: write class and run downloads for observation data
+        //TODO: write class and run downloads for observation NodeData
         //TODO: add some conf ability for setting location, could be presets or from IP
     }
 

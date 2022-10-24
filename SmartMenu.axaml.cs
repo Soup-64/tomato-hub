@@ -32,19 +32,21 @@ public partial class SmartMenu : UserControl, ActiveControl
 #endif
     }
 
+    private UdpClient Server;
+    private IPEndPoint client = new(IPAddress.Any, 0);
+    private Byte[] buffer;
+    private String data;
+    
+
     private async void runUdp()
     {
         await Task.Run(function: () =>
         {
-            var Server = new UdpClient(8984);
-            IPEndPoint client = new(IPAddress.Any, 0);
+            Server = new UdpClient(8984);
 
-            Byte[] buffer;
             Byte[] response = Encoding.ASCII.GetBytes("0,110");
             Byte[] response2 = Encoding.ASCII.GetBytes("hi other one");
             
-            String data;
-
             Console.WriteLine("starting listen loop");
             while (true)
             {
