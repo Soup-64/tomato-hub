@@ -29,7 +29,7 @@
         RowDefinitions="50,*">
 
         <Grid
-            ColumnDefinitions="200,*,200"
+            ColumnDefinitions="60,*,*,60"
             RowDefinitions="*"
             Background="#283D3B">
             <Button
@@ -37,11 +37,12 @@
                 Background="#C44536"
                 Grid.Column="0"
                 Name="Back"
-                Content="Back"
                 Click="backClick"
-                Width="200"
+                Width="50"
+                HorizontalAlignment="Left"
                 FontSize="20"
-                Margin="0">
+                Margin="0"
+                Content="↵">
             </Button>
 
             <TextBox
@@ -51,9 +52,22 @@
 
                 Name="DateTime"
                 Text=""
+                VerticalContentAlignment="Center"
+                TextAlignment="Left"
+                Height="50"
+                FontSize="28">
+            </TextBox>
+            
+            <TextBox
+                Foreground="#EDDDD4"
+                Grid.Column="2"
+                IsEnabled="False"
+
+                Name="StatusTxt"
+                Text="ok"
 
                 VerticalContentAlignment="Center"
-                TextAlignment="Center"
+                TextAlignment="Right"
                 Height="50"
                 FontSize="28">
             </TextBox>
@@ -61,9 +75,11 @@
             <Button Foreground="#EDDDD4"
                     FontSize="20"
                     Background="#C44536"
-                    Grid.Column="2"
-                    Click="sleepClick">
-                Sleep
+                    Grid.Column="3"
+                    Width="50"
+                    HorizontalAlignment="Right"
+                    Click="sleepClick"
+                    Content="⏾">
             </Button>
         </Grid>
 

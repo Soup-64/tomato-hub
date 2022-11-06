@@ -15,7 +15,7 @@ namespace avalonia_rider_test
         public static void Main(string[] args)
         {
             Node lights = new(new NodeID(), NodeType.RgbLight);
-            
+            //Nodes nodes= new();
 
 #if !DEBUG
             //this is because the rpi apparently only inits audio streams fully when something actually tries to play, so by

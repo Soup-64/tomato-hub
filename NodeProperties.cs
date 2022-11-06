@@ -23,20 +23,16 @@ public class Node
     }
 
     NodeID id;
-    public IPAddress ip;
     public NodeType type;
     public NodeData NodeData;
 }
 
-public abstract class nodeInterface
-{
-    
-}
-
 //generic NodeData class
+//used at runtime for storing active information that will not be saved
 public class NodeData
 {
     public int status;
+    public IPAddress ip;
 }
 
 //NodeData for lights
@@ -47,11 +43,22 @@ public class LightNodeData : NodeData
     public int r, g, b;
 }
 
+public class SensorNodeData : NodeData
+{
+    public string[] valNames;
+    public string[] valUnits;
+    public double[] vals;
+}
+
 //for json list of nodes
 [Serializable]
 public class Nodes
 {
-    public NodeID[] nodes;
+    public Nodes(int count)
+    {
+        ids = new NodeID[count];
+    }
+    public NodeID[] ids;
 }
 
 //save node id and name for creating the ui element while waiting to connect
@@ -59,10 +66,11 @@ public class Nodes
 public struct NodeID
 {
     public int id;
-    public string name; 
+    public string name;
     public NodeType type;
 }
 
+//enum for types of nodes, some will init data as a different type, others change flags
 public enum NodeType
 {
     Light       =   0,
@@ -71,6 +79,7 @@ public enum NodeType
     Remote      =   3,
 }
 
+//enum for status return codes
 public enum NodeStatus
 {
     Ok          =   0,  //no issues

@@ -54,7 +54,7 @@
                 FontSize="14"
                 Grid.Column="1"
                 IsEnabled="False">
-                some forecast text from api
+                forecast
             </TextBox>
         </Grid>
         <TextBox
@@ -65,7 +65,7 @@
             Grid.Row="1" 
             IsEnabled="False"
             >
-            some detailed info here on humidity and such
+            obs
         </TextBox>
         <TabControl Grid.Row="2" >
             <TabItem Header="This week">
@@ -81,7 +81,7 @@
                             <Setter Property="BorderBrush" Value="#283D3B"/>
                             <Setter Property="BorderThickness" Value="3"/>
                             <Setter Property="TextAlignment" Value="Center"/>
-                            <Setter Property="Padding" Value="15"/>
+                            <Setter Property="Padding" Value="0"/>
                             <Setter Property="FontSize" Value="16"/>
                             <Setter Property="TextWrapping" Value="Wrap"/>
                             <Setter Property="IsEnabled" Value="false"/>
@@ -89,13 +89,13 @@
                         </Style>
                     </StackPanel.Styles>
                     
-                    <TextBox Name="0"> test text</TextBox>
-                    <TextBox Name="1"> test text</TextBox>
-                    <TextBox Name="2">test text</TextBox>
-                    <TextBox Name="3"> test text</TextBox>
-                    <TextBox Name="4"> test text</TextBox>
-                    <TextBox Name="5"> test text</TextBox>
-                    <TextBox Name="6"> test text</TextBox>
+                    <TextBox Name="0">...</TextBox>
+                    <TextBox Name="1">...</TextBox>
+                    <TextBox Name="2">...</TextBox>
+                    <TextBox Name="3">...</TextBox>
+                    <TextBox Name="4">...</TextBox>
+                    <TextBox Name="5">...</TextBox>
+                    <TextBox Name="6">...</TextBox>
                 </StackPanel>
             </TabItem>
             <TabItem Header="Later today">

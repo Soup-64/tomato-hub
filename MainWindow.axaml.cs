@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
@@ -33,14 +34,11 @@ namespace avalonia_rider_test
             t.Enabled = true;
         }
 
-        
-        
+
         private void doTime(object? sender, ElapsedEventArgs e)
         {
-            Dispatcher.UIThread.Post(() =>
-            {
-                DateTime.Text = e.SignalTime.ToString(CultureInfo.CurrentCulture);
-            }, DispatcherPriority.Background);
+            Dispatcher.UIThread.Post(() => { DateTime.Text = e.SignalTime.ToString(CultureInfo.CurrentCulture); },
+                DispatcherPriority.Background);
         }
 
         private void backClick(object? sender, RoutedEventArgs e)
