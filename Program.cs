@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using Avalonia;
 using NetCoreAudio;
+using Newtonsoft.Json;
 
 namespace avalonia_rider_test
 {
@@ -14,8 +16,20 @@ namespace avalonia_rider_test
         [STAThread]
         public static void Main(string[] args)
         {
-            Node lights = new(new NodeID(), NodeType.RgbLight);
-            //Nodes nodes= new();
+            //creating stuff
+            Nodes n = new Nodes(3);
+            n.nodeList[0] = new LightNode(123, "somelight");
+            n.nodeList[0].status = NodeStatus.Ok;
+            n.nodeList[1] = new RgbNode(456, "balls");
+            
+            //serialize class, will have to empty out stuff that shouldn't be saved or
+            //remember to change it next run, or make more complex node props that splits this up more
+            string output = JsonConvert.SerializeObject(n);
+            Console.WriteLine(output);
+            
+            //replaces all text with new serialized data
+            File.WriteAllText(@"./nodes.json", output);
+
 
 #if !DEBUG
             //this is because the rpi apparently only inits audio streams fully when something actually tries to play, so by
@@ -31,18 +45,7 @@ namespace avalonia_rider_test
 #endif
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }
-
-        //some boiler plate example shit for playing audio async
-        // private static async void Plays()
-        // {
-        //     await Task.Run( () =>
-        //     {
-        //         var fxWav = new Player();
-        //
-        //         fxWav.Play("./output.wav");
-        //     });
-        // }
-
+        
         // Avalonia configuration, don't remove; also used by visual designer.
         private static AppBuilder BuildAvaloniaApp() => AppBuilder.Configure<App>().UsePlatformDetect().LogToTrace();
     }

@@ -4,73 +4,72 @@ using System.Net;
 
 namespace avalonia_rider_test;
 
-//class to hold NodeData from json and such to communicate with esps
+//class to hold data from json and runtime related info to communicate with ESPs
 public class Node
 {
-    public Node(NodeID id, NodeType nodeType)
-    {
-        this.id = id;
-        type = nodeType;
-        
-        switch(this.id.type)
-        {
-            case NodeType.Light:
-            case NodeType.RgbLight:
-                NodeData = new LightNodeData();
-                (NodeData as LightNodeData).rgb = (id.type==NodeType.RgbLight);
-                break;
-        }
-    }
-
-    NodeID id;
-    public NodeType type;
-    public NodeData NodeData;
-}
-
-//generic NodeData class
-//used at runtime for storing active information that will not be saved
-public class NodeData
-{
-    public int status;
+    public int idNum;
+    public string devName;
     public IPAddress ip;
+    public NodeStatus status;
+    
+    public Node(int idNum, string devName)
+    {
+        this.idNum = idNum;
+        this.devName = devName;
+    }
 }
 
-//NodeData for lights
-public class LightNodeData : NodeData
+public class LightNode : Node
 {
     public double brightness;
-    public bool rgb;
-    public int r, g, b;
+
+    public LightNode(int idNum, string devName) : base(idNum, devName)
+    {
+        
+    }
 }
 
-public class SensorNodeData : NodeData
+public class RgbNode : LightNode
+{
+    public int r, g, b;
+
+    public RgbNode(int idNum, string devName) : base(idNum, devName)
+    {
+        
+    }
+}
+
+public class SensorNode : Node
 {
     public string[] valNames;
     public string[] valUnits;
     public double[] vals;
+
+    public SensorNode(int idNum, string devName) : base(idNum, devName)
+    {
+        
+    }
+    
+    public SensorNode(int idNum, string devName, string[] valNames, string[] valUnits) : base(idNum, devName)
+    {
+        this.valNames = valNames;
+        this.valUnits = valUnits;
+    }
 }
 
 //for json list of nodes
 [Serializable]
 public class Nodes
 {
+    public Node[] nodeList;
+
     public Nodes(int count)
     {
-        ids = new NodeID[count];
+        nodeList = new Node[count];
     }
-    public NodeID[] ids;
 }
 
-//save node id and name for creating the ui element while waiting to connect
-[Serializable]
-public struct NodeID
-{
-    public int id;
-    public string name;
-    public NodeType type;
-}
-
-//enum for types of nodes, some will init data as a different type, others change flags
+//probably can remove, since actual types of boxed classes are exposed
 public enum NodeType
 {
     Light       =   0,
@@ -82,10 +81,11 @@ public enum NodeType
 //enum for status return codes
 public enum NodeStatus
 {
-    Ok          =   0,  //no issues
+    NoInit      =   0,  //default
     IoErr       =   1,  //device connected, NodeData corrupted/unreadable
     CommErr     =   2,  //device paired, no communication back
     SensorErr   =   3,  //device connected, could not return sensor NodeData
     UnknownErr  =   4,  //who knows, surely not me
     NotReady    =   5,  //init still in progress
+    Ok          =   6   //no issues
 }
