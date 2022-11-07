@@ -10,6 +10,7 @@ using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Controls.Primitives;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
@@ -26,57 +27,12 @@ public partial class SmartMenu : UserControl, ActiveControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
-        
+        IotControl control = new();
+
 #if !DEBUG
-        runUdp();
+
 #endif
     }
-
-    private UdpClient Server;
-    private IPEndPoint client = new(IPAddress.Any, 0);
-    private Byte[] buffer;
-    private String data;
-    
-
-    private async void runUdp()
-    {
-        await Task.Run(function: () =>
-        {
-            Server = new UdpClient(8984);
-
-            Byte[] response = Encoding.ASCII.GetBytes("0,110");
-            Byte[] response2 = Encoding.ASCII.GetBytes("hi other one");
-            
-            Console.WriteLine("starting listen loop");
-            while (true)
-            {
-                buffer = Server.Receive(ref client);
-                data = Encoding.ASCII.GetString(buffer);
-
-                Console.WriteLine($"{data} from {client.Address}");
-
-                if (data.Equals("a"))
-                {
-                    Console.WriteLine("replying to 1");
-                    for (int i = 10; i <= 110; i+= 10)
-                    {
-                        Thread.Sleep(100);
-                        Server.Send(Encoding.ASCII.GetBytes("0," + i), client.Address.ToString(), 8984);
-                    }
-                }
-                if (data.Equals("b"))
-                {
-                    Console.WriteLine("replying to 2");
-                    for (int i = 0; i < 10; i++)
-                    {
-                        Server.Send(response2, client.Address.ToString(), 8984);
-                    }
-                }
-            }
-        });
-    }
-    
-    
     
     public void changeActive(bool active)
     {
@@ -84,13 +40,9 @@ public partial class SmartMenu : UserControl, ActiveControl
         //whatever else needs to be done here
     }
 
-    private void buttonOff(object? sender, RoutedEventArgs e)
+    private void ButtonToggle(object? sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
-    }
-
-    private void buttonOn(object? sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
+        ToggleButton tog = sender as ToggleButton;
+        tog.Content = tog.IsChecked;
     }
 }

@@ -30,6 +30,11 @@
             <Setter Property="BorderThickness" Value="5"/>
             <Setter Property="Background" Value="#EDDDD4"/>
         </Style>
+        <Style Selector="ToggleButton">
+            <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
     </UserControl.Styles>
     
     <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" Name="controlGrid" >
@@ -42,14 +47,24 @@
                          Name="status"
                          Text="device status">
                 </TextBox>
-                <Button Grid.Row="1" Grid.Column="0"
-                        Content="On"
-                        Click="buttonOn">
+                
+                <Button
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    Content="Advanced">
+                    <Button.Flyout>
+                        <Flyout>
+                            <TextBlock Text="some settings here" />
+                        </Flyout>
+                    </Button.Flyout>
                 </Button>
-                <Button Grid.Row="1" Grid.Column="1"
-                        Content="Off"
-                        Click="buttonOff">
-                </Button>
+                
+                <ToggleButton
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Content="Toggle"
+                    Click="ButtonToggle">
+                </ToggleButton>
             </Grid>
     </Grid>
 </UserControl>

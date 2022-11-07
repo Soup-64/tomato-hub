@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 
@@ -61,11 +62,11 @@ public class SensorNode : Node
 [Serializable]
 public class Nodes
 {
-    public Node[] nodeList;
+    public List<Node> nodeList;
 
-    public Nodes(int count)
+    public Nodes()
     {
-        nodeList = new Node[count];
+        nodeList = new();
     }
 }
 

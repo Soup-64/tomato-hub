@@ -17,10 +17,15 @@ namespace avalonia_rider_test
         public static void Main(string[] args)
         {
             //creating stuff
-            Nodes n = new Nodes(3);
-            n.nodeList[0] = new LightNode(123, "somelight");
+            Nodes n = new()
+            {
+                nodeList =
+                {
+                    new LightNode(123, "somelight"),
+                    new RgbNode(456, "balls")
+                }
+            };
             n.nodeList[0].status = NodeStatus.Ok;
-            n.nodeList[1] = new RgbNode(456, "balls");
             
             //serialize class, will have to empty out stuff that shouldn't be saved or
             //remember to change it next run, or make more complex node props that splits this up more
