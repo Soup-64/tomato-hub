@@ -30,6 +30,7 @@ public class IotControl
     
     public async void start()
     {
+        //loop to handle connections
         await Task.Run(function: () =>
         {
             while (_shouldRun)
@@ -38,6 +39,13 @@ public class IotControl
                 _resp = Encoding.ASCII.GetString(_buff);
                 
                 
+                Console.WriteLine($"{_resp} from {_client.Address}");
+                //send whole ass nodes to the esp for updating stuff
+                Node temp = JsonConvert.DeserializeObject<Node>(_resp);
+                
+                //for loop to match to a local node, and update data locally if it exists,
+                //then raise an event that data has changed so the ui can act upon it
+
             }
             return null;
         });
@@ -54,6 +62,11 @@ public class IotControl
         Console.WriteLine(output);
         File.WriteAllText(@"./nodes.json", output);
         return true; //for returning if it ran as intended or not ig
+    }
+
+    public void addNode(Node n)
+    {
+        _nodeList.NodeList.Add(n);
     }
 
     // private async void runUdp()

@@ -8,21 +8,21 @@ namespace avalonia_rider_test;
 //class to hold data from json and runtime related info to communicate with ESPs
 public class Node
 {
-    public int idNum;
-    public string devName;
-    public IPAddress ip;
-    public NodeStatus status;
+    public readonly int IdNum;
+    public string DevName;
+    public readonly IPAddress Ip;
+    public NodeStatus Status;
     
     public Node(int idNum, string devName)
     {
-        this.idNum = idNum;
-        this.devName = devName;
+        this.IdNum = idNum;
+        this.DevName = devName;
     }
 }
 
 public class LightNode : Node
 {
-    public double brightness;
+    public double Brightness;
 
     public LightNode(int idNum, string devName) : base(idNum, devName)
     {
@@ -32,7 +32,7 @@ public class LightNode : Node
 
 public class RgbNode : LightNode
 {
-    public int r, g, b;
+    public int R, G, B;
 
     public RgbNode(int idNum, string devName) : base(idNum, devName)
     {
@@ -42,9 +42,9 @@ public class RgbNode : LightNode
 
 public class SensorNode : Node
 {
-    public string[] valNames;
-    public string[] valUnits;
-    public double[] vals;
+    public string[] ValNames;
+    public string[] ValUnits;
+    public double[] Vals;
 
     public SensorNode(int idNum, string devName) : base(idNum, devName)
     {
@@ -53,8 +53,8 @@ public class SensorNode : Node
     
     public SensorNode(int idNum, string devName, string[] valNames, string[] valUnits) : base(idNum, devName)
     {
-        this.valNames = valNames;
-        this.valUnits = valUnits;
+        this.ValNames = valNames;
+        this.ValUnits = valUnits;
     }
 }
 
@@ -62,11 +62,11 @@ public class SensorNode : Node
 [Serializable]
 public class Nodes
 {
-    public List<Node> nodeList;
+    public List<Node> NodeList;
 
     public Nodes()
     {
-        nodeList = new();
+        NodeList = new List<Node>();
     }
 }
 

@@ -63,7 +63,7 @@
                     Grid.Row="1"
                     Grid.Column="1"
                     Content="Toggle"
-                    Click="ButtonToggle">
+                    Click="buttonToggle">
                 </ToggleButton>
             </Grid>
     </Grid>

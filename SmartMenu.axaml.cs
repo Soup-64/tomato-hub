@@ -27,10 +27,8 @@ public partial class SmartMenu : UserControl, ActiveControl
     private void InitializeComponent()
     {
         AvaloniaXamlLoader.Load(this);
-        IotControl control = new();
-
 #if !DEBUG
-
+            IotControl control = new();
 #endif
     }
     
@@ -40,9 +38,9 @@ public partial class SmartMenu : UserControl, ActiveControl
         //whatever else needs to be done here
     }
 
-    private void ButtonToggle(object? sender, RoutedEventArgs e)
+    private void buttonToggle(object? sender, RoutedEventArgs e)
     {
-        ToggleButton tog = sender as ToggleButton;
-        tog.Content = tog.IsChecked;
+        ToggleButton? tog = sender as ToggleButton;
+        if (tog != null) tog.Content = tog.IsChecked;
     }
 }

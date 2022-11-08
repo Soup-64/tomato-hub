@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using Avalonia;
 using NetCoreAudio;
@@ -9,7 +8,6 @@ namespace avalonia_rider_test
 {
     internal static class Program
     {
-        //TODO: add some error checking on build.sh so it stops if anything fails
         // Initialization code. Don't use any Avalonia, third-party APIs or any
         // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
         // yet and stuff might break.
@@ -19,13 +17,13 @@ namespace avalonia_rider_test
             //creating stuff
             Nodes n = new()
             {
-                nodeList =
+                NodeList =
                 {
                     new LightNode(123, "somelight"),
                     new RgbNode(456, "balls")
                 }
             };
-            n.nodeList[0].status = NodeStatus.Ok;
+            n.NodeList[0].Status = NodeStatus.Ok;
             
             //serialize class, will have to empty out stuff that shouldn't be saved or
             //remember to change it next run, or make more complex node props that splits this up more

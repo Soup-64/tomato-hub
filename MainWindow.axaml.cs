@@ -1,10 +1,8 @@
 using System.Diagnostics;
 using System.Globalization;
-using System.Threading.Tasks;
 using System.Timers;
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
