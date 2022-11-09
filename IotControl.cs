@@ -43,12 +43,29 @@ public class IotControl
                 //send whole ass nodes to the esp for updating stuff
                 Node temp = JsonConvert.DeserializeObject<Node>(_resp);
                 
-                //for loop to match to a local node, and update data locally if it exists,
-                //then raise an event that data has changed so the ui can act upon it
+                for (int i = 0; i < _nodeList.NodeList.Count; i++)
+                {
+                    if (_nodeList.NodeList[i].IdNum.Equals(temp.IdNum))
+                    {
+                        _nodeList.NodeList[i] = temp; //sync if exists
+                        //TODO: raise data change event with node in it
+                    }
+                    else
+                    {
+                        Console.WriteLine("ERROR! node does not exist!");
+                        //TODO: add some system for registering new devices
+                        //by having a popup appear at this condition asking if the node should be kept track of
+                    }
+                }
 
             }
             return null;
         });
+    }
+
+    public void updateData()
+    {
+        //TODO: implement function for updating node data, which should raise an event to send it out via udp server
     }
 
     public void stop()

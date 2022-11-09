@@ -28,7 +28,7 @@ public partial class SmartMenu : UserControl, ActiveControl
     {
         AvaloniaXamlLoader.Load(this);
 #if !DEBUG
-            IotControl control = new();
+            //IotControl control = new();
 #endif
     }
     

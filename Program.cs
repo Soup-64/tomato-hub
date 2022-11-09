@@ -1,8 +1,11 @@
 ﻿using System;
 using System.IO;
 using Avalonia;
-using NetCoreAudio;
 using Newtonsoft.Json;
+
+//for the release mode audio test
+using System.Diagnostics;
+using NetCoreAudio;
 
 namespace avalonia_rider_test
 {
@@ -14,6 +17,7 @@ namespace avalonia_rider_test
         [STAThread]
         public static void Main(string[] args)
         {
+#if DEBUG
             //creating stuff
             Nodes n = new()
             {
@@ -32,7 +36,7 @@ namespace avalonia_rider_test
             
             //replaces all text with new serialized data
             File.WriteAllText(@"./nodes.json", output);
-
+#endif
 
 #if !DEBUG
             //this is because the rpi apparently only inits audio streams fully when something actually tries to play, so by
