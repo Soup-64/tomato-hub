@@ -14,6 +14,8 @@ namespace avalonia_rider_test;
 
 public partial class WeatherMenu : UserControl, ActiveControl
 {
+    static HttpClient client = new();
+
     public WeatherMenu()
     {
         initializeComponent();
@@ -36,14 +38,17 @@ public partial class WeatherMenu : UserControl, ActiveControl
         
         //download immediately at start, later downloads are by timer events only
         weatherData = downloadWeather();
-        t = new(60000); //periodic NodeData check
+        t = new(TimeSpan.FromMinutes(5).TotalMilliseconds); //periodic NodeData check
+        
         t.Elapsed += doWeatherUpdate;
         t.Enabled = true;
+        client.Timeout = TimeSpan.FromSeconds(10);
     }
 
     private void doWeatherUpdate(object? sender, ElapsedEventArgs e)
     {
-       
+        Console.WriteLine("updating");
+
         //download data if sent from timer, where there would be proper sender args
         if (sender != null) weatherData = downloadWeather();
 
@@ -56,10 +61,20 @@ public partial class WeatherMenu : UserControl, ActiveControl
             {
                 statusBox = desktop.MainWindow.Find<TextBox>("StatusTxt");
             }
-
-            if (weatherData.IsCompletedSuccessfully)
+            
+            statusBox.Text = "working";
+            try
             {
-                try //because of one weird random crash that was probably a corrupted download
+                weatherData.Wait();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                statusBox.Text = "request err";
+                return;
+            }
+
+            try //since the api is iffy and unreliable
                 {
                     updateInterface();
                     statusBox.Text = "ok";
@@ -73,11 +88,6 @@ public partial class WeatherMenu : UserControl, ActiveControl
 #endif
                     statusBox.Text = "api returned bad data";
                 }
-            }
-            else
-            {
-                statusBox.Text = "working";
-            }
         }, DispatcherPriority.Background);
     }
 
@@ -142,10 +152,10 @@ public partial class WeatherMenu : UserControl, ActiveControl
 
     private static async Task<string> getjsonStream(string url)
     {
-        HttpClient client = new();
         client.DefaultRequestHeaders.Add("User-Agent", "Rpi-weatherData-station");
         HttpResponseMessage response = await client.GetAsync(url);
         string content = await response.Content.ReadAsStringAsync();
+        Console.WriteLine(content);
         return content;
     }
 }
