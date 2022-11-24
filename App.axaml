@@ -3,7 +3,8 @@
              
              x:Class="avalonia_rider_test.App">
     <Application.Styles>
-        <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/>
+        <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/DefaultTheme.xaml"/> -->
+        <SimpleTheme Mode="Light" />
         <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/> -->
     </Application.Styles>
 </Application>

@@ -23,7 +23,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
 
     private Task<Weather[]> weatherData;
     private Timer t;
-    private TextBox statusBox;
+    private Label statusBox;
 
     public void changeActive(bool active)
     {
@@ -59,10 +59,10 @@ public partial class WeatherMenu : UserControl, ActiveControl
         {
             if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                statusBox = desktop.MainWindow.Find<TextBox>("StatusTxt");
+                statusBox = desktop.MainWindow.Find<Label>("StatusTxt");
             }
             
-            statusBox.Text = "working";
+            statusBox.Content = "working";
             try
             {
                 weatherData.Wait();
@@ -70,14 +70,14 @@ public partial class WeatherMenu : UserControl, ActiveControl
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                statusBox.Text = "request err";
+                statusBox.Content = "request err";
                 return;
             }
 
             try //since the api is iffy and unreliable
                 {
                     updateInterface();
-                    statusBox.Text = "ok";
+                    statusBox.Content = "ok";
                 }
                 catch (NullReferenceException e)
                 {
@@ -86,7 +86,7 @@ public partial class WeatherMenu : UserControl, ActiveControl
                     Console.WriteLine(weatherData.Result[0]);
                     Console.WriteLine(weatherData.Result[1]);
 #endif
-                    statusBox.Text = "api returned bad data";
+                    statusBox.Content = "api returned bad data";
                 }
         }, DispatcherPriority.Background);
     }

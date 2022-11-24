@@ -19,10 +19,12 @@
         SizeToContent="Manual"
 
         Title="avalonia_rider_test">
-
-
-    <!-- make back button and such something on a top bar, 
-    with some other info to make carousel traversals less fuck-y -->
+    
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#EDDDD4"/>
+        </Style>
+    </Window.Styles>
 
     <Grid
         ColumnDefinitions="*"
@@ -44,33 +46,33 @@
                 Margin="0"
                 Content="↵">
             </Button>
-
-            <TextBox
+            
+            <Label
                 Foreground="#EDDDD4"
                 Grid.Column="1"
                 IsEnabled="False"
 
                 Name="DateTime"
-                Text=""
+                Content=""
                 VerticalContentAlignment="Center"
-                TextAlignment="Left"
+                HorizontalContentAlignment="Left"
                 Height="50"
                 FontSize="28">
-            </TextBox>
+            </Label>
             
-            <TextBox
+            <Label
                 Foreground="#EDDDD4"
                 Grid.Column="2"
                 IsEnabled="False"
 
                 Name="StatusTxt"
-                Text="ok"
+                Content="ok"
 
                 VerticalContentAlignment="Center"
-                TextAlignment="Right"
+                HorizontalContentAlignment="Right"
                 Height="50"
                 FontSize="28">
-            </TextBox>
+            </Label>
 
             <Button Foreground="#EDDDD4"
                     FontSize="20"

@@ -11,7 +11,7 @@ namespace avalonia_rider_test
 {
     public class MainWindow : Window
     {
-        private TextBox DateTime;
+        private Label DateTime;
 
         public MainWindow()
         {
@@ -25,7 +25,7 @@ namespace avalonia_rider_test
         {
             AvaloniaXamlLoader.Load(this);
 
-            DateTime = this.Find<TextBox>("DateTime");
+            DateTime = this.Find<Label>("DateTime");
 
             Timer t = new Timer(1000);
             t.Elapsed += doTime;
@@ -35,7 +35,7 @@ namespace avalonia_rider_test
 
         private void doTime(object? sender, ElapsedEventArgs e)
         {
-            Dispatcher.UIThread.Post(() => { DateTime.Text = e.SignalTime.ToString(CultureInfo.CurrentCulture); },
+            Dispatcher.UIThread.Post(() => { DateTime.Content = e.SignalTime.ToString(CultureInfo.CurrentCulture); },
                 DispatcherPriority.Background);
         }
 
