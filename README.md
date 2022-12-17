@@ -5,4 +5,4 @@ dependencies
 - unclutter
 - xorg and it's utilities such as xset
 - a user named auto set to autologin on tty
-- dotnet 6
+- dotnet 6 and up
