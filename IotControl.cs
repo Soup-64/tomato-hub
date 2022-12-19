@@ -65,6 +65,7 @@ public class IotControl
 
     public void updateData()
     {
+        
         //TODO: implement function for updating node data, which should raise an event to send it out via udp server
     }
 

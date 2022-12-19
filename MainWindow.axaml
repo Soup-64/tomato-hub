@@ -4,7 +4,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:application="clr-namespace:avalonia_rider_test"
         mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="600"
-        xmlns:global="clr-namespace:"
         
         Position="0,0"
         Width="1024"

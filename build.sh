@@ -3,7 +3,7 @@
 #clean out old build files
 rm -r ../linux-arm64/*
 #check exit code in case of failed compilation
-if dotnet publish -c Release -r linux-arm64 -o ../linux-arm64/ -p:PublishTrimmed=true -p:PublishSingleFile=true;
+if dotnet publish -c Release -r linux-arm64 -o ../linux-arm64/ -p:PublishSingleFile=true;
 then
   #remove junk file, not needed
   rm ../linux-arm64/avalonia_rider_test.pdb
