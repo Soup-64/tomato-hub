@@ -6,3 +6,5 @@ dependencies
 - xorg and it's utilities such as xset
 - a user named auto set to autologin on tty
 - dotnet 6 and up
+
+[images of the project for reference](https://imgur.com/a/VCB3gQY)
