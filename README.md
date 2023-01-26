@@ -4,7 +4,11 @@
 dependencies
 - unclutter
 - xorg and it's utilities such as xset
-- a user named auto set to autologin on tty
+- some autologin user to run the hub's interface off of
+- dhcpd
+- dnsmasq
+- hostapd
+- some firewall service such as ufw
 - dotnet 7
 
 [images of the project for reference](https://imgur.com/a/VCB3gQY)
