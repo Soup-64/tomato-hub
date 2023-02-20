@@ -9,14 +9,18 @@
              FontWeight="Normal">
     
     <UserControl.Styles>
-        <Style Selector="TextBox">
-            <Setter Property="Background" Value="#EDDDD4"/>
+        <Style Selector="Border">
             <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="CornerRadius" Value="10"/>
+        </Style>
+        <Style Selector="TextBlock">
+            <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="Foreground" Value="#2A2E32"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
             <Setter Property="IsEnabled" Value="False"/>
-            <Setter Property="BorderThickness" Value="5"/>
         </Style>
         <Style Selector="StackPanel">
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -27,31 +31,35 @@
         </Style>
         <Style Selector="Button">
             <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="Foreground" Value="#2A2E32"/>
             <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="#EDDDD4"/>
         </Style>
         <Style Selector="ToggleButton">
             <Setter Property="BorderBrush" Value="#C44536"/>
+            <Setter Property="Foreground" Value="#2A2E32"/>
+            <Setter Property="CornerRadius" Value="10"/>
             <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="Margin" Value="5"/>
             <Setter Property="Background" Value="#EDDDD4"/>
         </Style>
     </UserControl.Styles>
     
-    <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" Name="controlGrid" >
-            <Grid RowDefinitions="40,70" ColumnDefinitions="256,256" Name="device1">
-                <TextBox
-                    Name="name"
-                    Text="button name">
-                </TextBox>
-                <TextBox Grid.Row="0" Grid.Column="1"
-                         Name="status"
+    <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" x:Name="controlGrid" >
+            <Grid RowDefinitions="40,70" ColumnDefinitions="256,256" x:Name="devLight">
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                                       x:Name="devName" 
+                                       Text="button name">
+                </TextBlock>
+                <TextBlock Grid.Row="0" Grid.Column="1"
+                         x:Name="devStatus"
                          Text="device status">
-                </TextBox>
+                </TextBlock>
                 
-                <Button
-                    Grid.Column="0"
-                    Grid.Row="1"
-                    Content="Advanced">
+                <Button Grid.Column="0" Grid.Row="1" Content="Advanced"
+                        x:Name="devAdv">
                     <Button.Flyout>
                         <Flyout>
                             <TextBlock Text="some settings here" />
@@ -59,11 +67,10 @@
                     </Button.Flyout>
                 </Button>
                 
-                <ToggleButton
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Content="Toggle"
-                    Click="buttonToggle">
+                <ToggleButton Grid.Row="1" Grid.Column="1"
+                              x:Name="devToggle"
+                              Content="Toggle">
+                              <!-- Click="buttonToggle" -->
                 </ToggleButton>
             </Grid>
     </Grid>

@@ -9,8 +9,11 @@
              FontWeight="Normal">
     
     <UserControl.Styles>
-        <Style Selector="TextBox">
-            <Setter Property="Background" Value="#EDDDD4"/>
+        <Style Selector="TextBlock">
+            <Setter Property="Foreground" Value="#2A2E32"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Padding" Value="2"/>
         </Style>
         <Style Selector="TabItem">
             <Setter Property="Height" Value="50"/>
@@ -35,71 +38,71 @@
         RowDefinitions="100,50,*">
 
         <!-- big temp and such should grab obs data not forecast -->
-        <Grid ColumnDefinitions="*,*">
-            <TextBox
-                BorderBrush="#C44536"
-                BorderThickness="3"
-                Name="bigTemp"
-                IsEnabled="False"
+        <Grid ColumnDefinitions="*,*" Background="#EDDDD4">
+            <TextBlock
+                x:Name="bigTemp"
                 FontSize="42"
                 TextAlignment="Left"
                 Padding="10">
                 XX°
-            </TextBox>
-            <TextBox
-                BorderBrush="#C44536"
-                BorderThickness="3"
+            </TextBlock>
+            <TextBlock
                 TextWrapping="Wrap"
                 Name="Forecast"
                 FontSize="14"
-                Grid.Column="1"
-                IsEnabled="False">
+                Grid.Column="1">
                 forecast
-            </TextBox>
+            </TextBlock>
         </Grid>
-        <TextBox
-            BorderBrush="#C44536"
-            BorderThickness="0"
+        <TextBlock
+            Background="#EDDDD4"
             Name="Observations"
             TextWrapping="Wrap"
-            Grid.Row="1" 
-            IsEnabled="False"
-            >
+            Grid.Row="1">
             obs
-        </TextBox>
-        <TabControl Grid.Row="2" >
+        </TextBlock>
+        <TabControl Grid.Row="2">
+            <TabControl.Styles>
+                <Style Selector="TextBlock">
+                    <Setter Property="Foreground" Value="#EDDDD4"/>
+                    <Setter Property="FontWeight" Value="Normal"/>
+                </Style>
+            </TabControl.Styles>
             <TabItem Header="This week">
                 <StackPanel
                     HorizontalAlignment="Center"
                     Spacing="5"
                     Margin="5"
-                    Grid.Row="1"
                     Orientation="Horizontal">
-                    <!-- put the actual weather data and stuff here -->
                     <StackPanel.Styles>
-                        <Style Selector="TextBox">
-                            <Setter Property="BorderBrush" Value="#283D3B"/>
-                            <Setter Property="BorderThickness" Value="3"/>
+                        <Style Selector="TextBlock">
+                            <Setter Property="FontWeight" Value="Bold"/>
                             <Setter Property="TextAlignment" Value="Center"/>
-                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Foreground" Value="#2A2E32"/>
+                            <Setter Property="Padding" Value="2"/>
                             <Setter Property="FontSize" Value="16"/>
                             <Setter Property="TextWrapping" Value="Wrap"/>
                             <Setter Property="IsEnabled" Value="false"/>
-                            <Setter Property="Width" Value="140"/>
+                            <Setter Property="Width" Value="130"/>
+                        </Style>
+                        <Style Selector="Border">
+                            <Setter Property="BorderBrush" Value="#C44536"/>
+                            <Setter Property="BorderThickness" Value="5"/>
+                            <Setter Property="CornerRadius" Value="10"/>
+
                         </Style>
                     </StackPanel.Styles>
-                    
-                    <TextBox Name="0">...</TextBox>
-                    <TextBox Name="1">...</TextBox>
-                    <TextBox Name="2">...</TextBox>
-                    <TextBox Name="3">...</TextBox>
-                    <TextBox Name="4">...</TextBox>
-                    <TextBox Name="5">...</TextBox>
-                    <TextBox Name="6">...</TextBox>
+                    <Border><TextBlock Name="d0">...</TextBlock></Border>
+                    <Border><TextBlock Name="d1">...</TextBlock></Border>
+                    <Border><TextBlock Name="d2">...</TextBlock></Border>
+                    <Border><TextBlock Name="d3">...</TextBlock></Border>
+                    <Border><TextBlock Name="d4">...</TextBlock></Border>
+                    <Border><TextBlock Name="d5">...</TextBlock></Border>
+                    <Border><TextBlock Name="d6">...</TextBlock></Border>
                 </StackPanel>
             </TabItem>
-            <TabItem Header="Later today">
-                <TextBox IsEnabled="False" Margin="25">haha this is not finished yet</TextBox>
+            <TabItem TabIndex="1" Header="Later today">
+                <TextBlock Margin="25">haha this is not finished yet</TextBlock>
             </TabItem>
         </TabControl>
 

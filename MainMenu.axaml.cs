@@ -10,18 +10,13 @@ using NetCoreAudio;
 
 namespace avalonia_rider_test;
 
-public class MainMenu : UserControl, ActiveControl
+public partial class MainMenu : UserControl, ActiveControl
 {
     public MainMenu()
     {
-        InitializeComponent();
+        this.InitializeComponent();
     }
 
-    private void InitializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-    }
-    
     public void changeActive(bool active)
     {
         this.IsVisible = active;

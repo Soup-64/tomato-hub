@@ -18,6 +18,15 @@
         SizeToContent="Manual"
 
         Title="avalonia_rider_test">
+    
+    <Window.Styles>
+        <Style Selector="TextBox">
+            <Setter Property="Background" Value="#00FFFFFF"/>
+            <Setter Property="Foreground" Value="#EDDDD4"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="IsEnabled" Value="false"/>
+        </Style>
+    </Window.Styles>
 
 
     <!-- make back button and such something on a top bar, 
@@ -35,7 +44,7 @@
                 Foreground="#EDDDD4"
                 Background="#C44536"
                 Grid.Column="0"
-                Name="Back"
+                x:Name="Back"
                 Click="backClick"
                 Width="50"
                 HorizontalAlignment="Left"
@@ -45,24 +54,18 @@
             </Button>
 
             <TextBox
-                Foreground="#EDDDD4"
                 Grid.Column="1"
-                IsEnabled="False"
-
-                Name="DateTime"
+                x:Name="DateTime"
                 Text=""
+                
                 VerticalContentAlignment="Center"
                 TextAlignment="Left"
                 Height="50"
                 FontSize="28">
             </TextBox>
-            
             <TextBox
-                Foreground="#EDDDD4"
                 Grid.Column="2"
-                IsEnabled="False"
-
-                Name="StatusTxt"
+                x:Name="StatusTxt"
                 Text="ok"
 
                 VerticalContentAlignment="Center"

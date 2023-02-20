@@ -3,7 +3,6 @@
              
              x:Class="avalonia_rider_test.App">
     <Application.Styles>
-        <SimpleTheme Mode="Light"></SimpleTheme>
-        <!-- <StyleInclude Source="avares://Avalonia.Themes.Default/Accents/BaseDark.xaml"/> -->
+        <SimpleTheme />
     </Application.Styles>
 </Application>

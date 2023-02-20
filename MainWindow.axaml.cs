@@ -9,30 +9,19 @@ using Avalonia.Threading;
 
 namespace avalonia_rider_test
 {
-    public class MainWindow : Window
+    public partial class MainWindow : Window
     {
-        private TextBox DateTime;
-
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-        }
-
-        private void InitializeComponent()
-        {
-            AvaloniaXamlLoader.Load(this);
-
-            DateTime = this.Find<TextBox>("DateTime");
-
             Timer t = new Timer(1000);
             t.Elapsed += doTime;
             t.Enabled = true;
         }
-
-
+        
         private void doTime(object? sender, ElapsedEventArgs e)
         {
             Dispatcher.UIThread.Post(() => { DateTime.Text = e.SignalTime.ToString(CultureInfo.CurrentCulture); },

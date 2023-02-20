@@ -11,17 +11,26 @@
         <None Update="output.wav">
           <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </None>
+        <None Update="test.axaml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <AvaloniaXaml Remove="testtwo.axaml" />
+        <None Include="testtwo.axaml">
+          <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Avalonia" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview4" />
+        <PackageReference Include="Avalonia" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Desktop" Version="11.0.0-preview5" />
         <!--Condition below is needed to remove Avalonia.Diagnostics package from build output in Release configuration.-->
-        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview4" />
-        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview4" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Markup.Xaml.Loader" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Themes.Fluent" Version="11.0.0-preview5" />
+        <PackageReference Include="Avalonia.Themes.Simple" Version="11.0.0-preview5" />
         <PackageReference Include="Citrus.Avalonia" Version="1.6.1" />
         <PackageReference Include="netcoreaudio" Version="1.7.0" />
         <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+        <PackageReference Include="XamlNameReferenceGenerator" Version="1.5.1" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="WeatherMenu.axaml.cs">

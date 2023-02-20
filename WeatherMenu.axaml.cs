@@ -18,7 +18,15 @@ public partial class WeatherMenu : UserControl, ActiveControl
 
     public WeatherMenu()
     {
-        initializeComponent();
+        this.InitializeComponent();
+
+        //download immediately at start, later downloads are by timer events only
+        weatherData = downloadWeather();
+        t = new(TimeSpan.FromMinutes(5).TotalMilliseconds); //periodic NodeData check
+
+        t.Elapsed += doWeatherUpdate;
+        t.Enabled = true;
+        client.Timeout = TimeSpan.FromSeconds(10);
     }
 
     private Task<Weather[]> weatherData;
@@ -32,40 +40,24 @@ public partial class WeatherMenu : UserControl, ActiveControl
         if (active) doWeatherUpdate(null, null);
     }
 
-    private void initializeComponent()
-    {
-        AvaloniaXamlLoader.Load(this);
-        
-        //download immediately at start, later downloads are by timer events only
-        weatherData = downloadWeather();
-        t = new(TimeSpan.FromMinutes(5).TotalMilliseconds); //periodic NodeData check
-        
-        t.Elapsed += doWeatherUpdate;
-        t.Enabled = true;
-        client.Timeout = TimeSpan.FromSeconds(10);
-    }
-
     private void doWeatherUpdate(object? sender, ElapsedEventArgs e)
     {
-        Console.WriteLine("updating");
-
         //download data if sent from timer, where there would be proper sender args
         if (sender != null) weatherData = downloadWeather();
+        if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+        {
+            statusBox = desktop.MainWindow.Find<TextBox>("StatusTxt");
+        }
 
 #if DEBUG
         Console.WriteLine("updating ui");
 #endif
         Dispatcher.UIThread.Post(() =>
         {
-            if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-            {
-                statusBox = desktop.MainWindow.Find<TextBox>("StatusTxt");
-            }
-            
             statusBox.Text = "working";
             try
             {
-                weatherData.Wait();
+                //weatherData.Wait((int) TimeSpan.FromSeconds(10).TotalMilliseconds);
             }
             catch (Exception e)
             {
@@ -75,39 +67,38 @@ public partial class WeatherMenu : UserControl, ActiveControl
             }
 
             try //since the api is iffy and unreliable
-                {
-                    updateInterface();
-                    statusBox.Text = "ok";
-                }
-                catch (NullReferenceException e)
-                {
+            {
+                updateInterface();
+                statusBox.Text = "ok";
+            }
+            catch (NullReferenceException e)
+            {
 #if DEBUG
-                    Console.WriteLine(e.Message);
-                    Console.WriteLine(weatherData.Result[0]);
-                    Console.WriteLine(weatherData.Result[1]);
+                Console.WriteLine(e.Message);
+                Console.WriteLine($"trace: {e.StackTrace}");
+                Console.WriteLine(weatherData.Result[0]);
+                Console.WriteLine(weatherData.Result[1]);
 #endif
-                    statusBox.Text = "api returned bad data";
-                }
+                statusBox.Text = "api returned bad data";
+            }
         }, DispatcherPriority.Background);
     }
 
     private void updateInterface()
     {
-        TextBox bigTemp = this.Find<TextBox>("bigTemp");
-        TextBox forecastNow = this.Find<TextBox>("Forecast");
-        TextBox[] forecast = new TextBox[7];
+        TextBlock[] forecast = new TextBlock[7];
 
         for (int i = 0; i < 7; i++)
         {
-            forecast[i] = this.Find<TextBox>($"{i}");
+            forecast[i] = this.Find<TextBlock>($"d{i}");
             forecast[i].Text = weatherData.Result[0].properties.periods[i * 2].name + "\n";
             forecast[i].Text += weatherData.Result[0].properties.periods[i * 2].temperature + "\u00B0 \n";
             forecast[i].Text += weatherData.Result[0].properties.periods[i * 2].windSpeed + " ";
             forecast[i].Text += weatherData.Result[0].properties.periods[i * 2].windDirection;
         }
 
-        forecastNow.Text = weatherData.Result[0].properties.periods[0].detailedForecast;
-        bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
+        this.Forecast.Text = weatherData.Result[0].properties.periods[0].detailedForecast;
+        this.bigTemp.Text = weatherData.Result[1].properties.periods[0].temperature + "\u00B0";
     }
 
 
@@ -155,7 +146,6 @@ public partial class WeatherMenu : UserControl, ActiveControl
         client.DefaultRequestHeaders.Add("User-Agent", "Rpi-weatherData-station");
         HttpResponseMessage response = await client.GetAsync(url);
         string content = await response.Content.ReadAsStringAsync();
-        Console.WriteLine(content);
         return content;
     }
 }
