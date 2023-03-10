@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -17,25 +18,40 @@ using Avalonia.Data;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
 using Avalonia.Threading;
+using ReactiveUI;
 
 namespace avalonia_rider_test;
 
-public partial class SmartMenu : UserControl, ActiveControl
+
+public partial class SmartMenu : UserControl, ActiveControl, IReactiveObject
 {
     private Controls gridItems;
+    object itemTest = new SmartUiItem(false, "device", "offline");
+    private StackPanel panel = new();
 
     public SmartMenu()
     {
         InitializeComponent();
+        //disable setting up the IoT backend for now
         //IotControl control = new();
-        gridItems = controlGrid.Children;
+        Control c = new();
+        
+        this.Panel.Children.Add();
+        //this.Content = itemTest;
+    }
+
+    public void gridTest()
+    {
+        /**gridItems = controlGrid.Children;
         //hell
+        
         IndexerBinding zero = new(controlGrid,
             new AttachedProperty<int>("Column", typeof(Grid), new StyledPropertyMetadata<int>(0)), BindingMode.Default);
         IndexerBinding one = new(controlGrid,
             new AttachedProperty<int>("Column", typeof(Grid), new StyledPropertyMetadata<int>(1)), BindingMode.Default);
         IndexerBinding two = new(controlGrid,
             new AttachedProperty<int>("Column", typeof(Grid), new StyledPropertyMetadata<int>(2)), BindingMode.Default);
+            
         //gridItems.Clear();
 
         Grid testGrid = AvaloniaRuntimeXamlLoader.Parse<Grid>("""
@@ -80,6 +96,7 @@ RowDefinitions="40,70" ColumnDefinitions="256,256" Name="devLight">
         testGrid[!Grid.ColumnProperty] = zero;
         gridItems.Add(testGrid);
         gridItems.Add(t);
+        */
     }
 
     public void changeActive(bool active)
@@ -92,5 +109,16 @@ RowDefinitions="40,70" ColumnDefinitions="256,256" Name="devLight">
     {
         ToggleButton? tog = sender as ToggleButton;
         if (tog != null) tog.Content = tog.IsChecked;
+    }
+
+    public event PropertyChangingEventHandler? PropertyChanging;
+    public void RaisePropertyChanging(PropertyChangingEventArgs args)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void RaisePropertyChanged(PropertyChangedEventArgs args)
+    {
+        throw new NotImplementedException();
     }
 }

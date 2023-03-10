@@ -2,6 +2,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:avaloniaRiderTest="clr-namespace:avalonia_rider_test"
+             xmlns:local="clr-namespace:avalonia_rider_test"
              mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="550"
              x:Class="avalonia_rider_test.SmartMenu"
              FontSize="18"
@@ -46,7 +48,28 @@
             <Setter Property="Background" Value="#EDDDD4"/>
         </Style>
     </UserControl.Styles>
+
     
+        <UserControl.ContentTemplate>
+            <DataTemplate DataType="{x:Type local:SmartUiItem}">
+                <StackPanel>
+                    <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
+                        <TextBlock Grid.Column="0">Name:</TextBlock>
+                        <TextBlock Grid.Column="1" Text="{Binding name}"/>
+                        <TextBlock Grid.Column="2" Text="{Binding status}"/>
+                        <ToggleSwitch Grid.Column="3" IsChecked="{Binding toggle}"/>
+                    </Grid>
+                </StackPanel>
+            </DataTemplate>
+        </UserControl.ContentTemplate>
+    
+    <!-- <local:SmartUiItem toggle="True" name="Device" status="Offline" />-->
+
+     <StackPanel Orientation="Vertical" x:Name="Panel">
+         
+     </StackPanel>
+    
+    <!--
     <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" x:Name="controlGrid" >
             <Grid RowDefinitions="40,70" ColumnDefinitions="256,256" x:Name="devLight">
                 <TextBlock Grid.Row="0" Grid.Column="0"
@@ -70,8 +93,9 @@
                 <ToggleButton Grid.Row="1" Grid.Column="1"
                               x:Name="devToggle"
                               Content="Toggle">
-                              <!-- Click="buttonToggle" -->
+                              Click="buttonToggle"
                 </ToggleButton>
             </Grid>
     </Grid>
+        -->
 </UserControl>
