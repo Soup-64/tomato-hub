@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -28,15 +29,22 @@ public partial class SmartMenu : UserControl, ActiveControl, IReactiveObject
     private Controls gridItems;
     object itemTest = new SmartUiItem(false, "device", "offline");
     private StackPanel panel = new();
+    
+    List<SmartUiItem> items = new List<SmartUiItem>()
+    {
+        new SmartUiItem(false, "device", "offline"),
+        new SmartUiItem(true, "device2", "error")
+    };
 
     public SmartMenu()
     {
         InitializeComponent();
         //disable setting up the IoT backend for now
         //IotControl control = new();
-        Control c = new();
         
-        this.Panel.Children.Add();
+        //this.Box.Items = items;
+
+        //this.Panel.Children.Add();
         //this.Content = itemTest;
     }
 
@@ -114,11 +122,11 @@ RowDefinitions="40,70" ColumnDefinitions="256,256" Name="devLight">
     public event PropertyChangingEventHandler? PropertyChanging;
     public void RaisePropertyChanging(PropertyChangingEventArgs args)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("prop changing");
     }
 
     public void RaisePropertyChanged(PropertyChangedEventArgs args)
     {
-        throw new NotImplementedException();
+        Console.WriteLine("prop change");
     }
 }

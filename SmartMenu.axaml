@@ -50,24 +50,27 @@
     </UserControl.Styles>
 
     
-        <UserControl.ContentTemplate>
+        <UserControl.DataTemplates>
             <DataTemplate DataType="{x:Type local:SmartUiItem}">
-                <StackPanel>
-                    <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
+                <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
                         <TextBlock Grid.Column="0">Name:</TextBlock>
                         <TextBlock Grid.Column="1" Text="{Binding name}"/>
                         <TextBlock Grid.Column="2" Text="{Binding status}"/>
                         <ToggleSwitch Grid.Column="3" IsChecked="{Binding toggle}"/>
                     </Grid>
-                </StackPanel>
             </DataTemplate>
-        </UserControl.ContentTemplate>
+        </UserControl.DataTemplates>
     
-    <!-- <local:SmartUiItem toggle="True" name="Device" status="Offline" />-->
+    <ItemsControl x:Name="Box" Focusable="False">
+        <ToggleSwitch Focusable="False"> test</ToggleSwitch>
+        <ToggleSwitch Focusable="False"> other</ToggleSwitch>
+    </ItemsControl>
+    
+    <!-- <local:SmartUiItem toggle="True" name="Device" status="Offline" />
 
      <StackPanel Orientation="Vertical" x:Name="Panel">
          
-     </StackPanel>
+     </StackPanel>-->
     
     <!--
     <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" x:Name="controlGrid" >
