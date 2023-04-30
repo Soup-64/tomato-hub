@@ -53,18 +53,23 @@
         <UserControl.DataTemplates>
             <DataTemplate DataType="{x:Type local:SmartUiItem}">
                 <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
-                        <TextBlock Grid.Column="0">Name:</TextBlock>
+                        <TextBlock Grid.Column="0">Name: </TextBlock>
                         <TextBlock Grid.Column="1" Text="{Binding name}"/>
                         <TextBlock Grid.Column="2" Text="{Binding status}"/>
-                        <ToggleSwitch Grid.Column="3" IsChecked="{Binding toggle}"/>
+                        <ToggleSwitch Grid.Column="3" Name="{Binding name}" IsChecked="{Binding toggle}" Click="Button_OnClick"/>
                     </Grid>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type local:Node}">
+                <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
+                    <TextBlock Grid.Column="0" Text="{Binding DevName}"/>
+                    <TextBlock Grid.Column="1" Text="{Binding IdNum}"/>
+                    <TextBlock Grid.Column="2" Text="{Binding Status}"/>
+                    <ToggleSwitch Grid.Column="3" Name="{Binding DevName}" IsChecked="{Binding activated}" Click="Button_OnClick"/>
+                </Grid>
             </DataTemplate>
         </UserControl.DataTemplates>
     
-    <ItemsControl x:Name="Box" Focusable="False">
-        <ToggleSwitch Focusable="False"> test</ToggleSwitch>
-        <ToggleSwitch Focusable="False"> other</ToggleSwitch>
-    </ItemsControl>
+    <ItemsControl x:Name="SmartItems" Focusable="False" />
     
     <!-- <local:SmartUiItem toggle="True" name="Device" status="Offline" />
 

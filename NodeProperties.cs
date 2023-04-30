@@ -8,10 +8,11 @@ namespace avalonia_rider_test;
 //class to hold data from json and runtime related info to communicate with ESPs
 public class Node
 {
-    public readonly int IdNum;
-    public string DevName;
-    public readonly IPAddress Ip;
-    public NodeStatus Status;
+    public int IdNum { set; get; }
+    public string DevName { set; get; }
+    public IPAddress Ip { set; get; }
+    public NodeStatus Status { set; get; }
+    public bool activated { set; get; }
     
     public Node(int idNum, string devName)
     {
@@ -62,11 +63,11 @@ public class SensorNode : Node
 [Serializable]
 public class Nodes
 {
-    public List<Node> NodeList;
+    public List<Node?> NodeList;
 
     public Nodes()
     {
-        NodeList = new List<Node>();
+        NodeList = new List<Node?>();
     }
 }
 

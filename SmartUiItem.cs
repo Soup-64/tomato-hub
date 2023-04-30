@@ -1,3 +1,7 @@
+using System;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+
 namespace avalonia_rider_test;
 
 public class SmartUiItem
