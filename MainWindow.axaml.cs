@@ -1,7 +1,9 @@
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Timers;
 using Avalonia;
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 using Avalonia.Interactivity;
@@ -20,6 +22,7 @@ namespace avalonia_rider_test
             Timer t = new Timer(1000);
             t.Elapsed += doTime;
             t.Enabled = true;
+            Switcher.PageTransition = new CrossFade(TimeSpan.FromSeconds(0.25));
         }
         
         private void doTime(object? sender, ElapsedEventArgs e)
@@ -30,10 +33,9 @@ namespace avalonia_rider_test
 
         private void backClick(object? sender, RoutedEventArgs e)
         {
-            Carousel switcher = this.Find<Carousel>("Switcher");
-            ((ActiveControl) switcher.SelectedItem!).changeActive(false);
-            switcher.SelectedIndex = 0;
-            ((ActiveControl) switcher.SelectedItem!).changeActive(true);
+            ((ActiveControl) this.Switcher.SelectedItem!).changeActive(false);
+            this.Switcher.SelectedIndex = 0;
+            ((ActiveControl) this.Switcher.SelectedItem!).changeActive(true);
         }
 
         private void sleepClick(object? sender, RoutedEventArgs e)

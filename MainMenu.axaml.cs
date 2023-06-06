@@ -1,11 +1,17 @@
 using System;
 using System.Diagnostics;
 using System.Net;
+using System.Threading.Tasks;
 using Avalonia;
+using Avalonia.Animation;
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Styling;
+using MessageBox.Avalonia.BaseWindows.Base;
+using MessageBox.Avalonia.DTO;
+using MessageBox.Avalonia.Enums;
 using NetCoreAudio;
 
 namespace avalonia_rider_test;
@@ -32,7 +38,7 @@ public partial class MainMenu : UserControl, ActiveControl
         }
     }
 
-    private void button_Click(object? sender, RoutedEventArgs e)
+    private void sound_Click(object? sender, RoutedEventArgs e)
     {
         Player fxWav = new();
 
@@ -41,6 +47,7 @@ public partial class MainMenu : UserControl, ActiveControl
         
     private void weather_Click(object? sender, RoutedEventArgs e)
     {
+        Console.WriteLine("switch to weather");
         if (Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
             Carousel switcher = desktop.MainWindow.Find<Carousel>("Switcher");
@@ -65,5 +72,6 @@ public partial class MainMenu : UserControl, ActiveControl
             ((ActiveControl) switcher.SelectedItem!).changeActive(false);
             switcher.SelectedIndex = 2;
             ((ActiveControl) switcher.SelectedItem!).changeActive(true);
-        }    }
+        }
+    }
 }

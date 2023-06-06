@@ -39,7 +39,7 @@
             Grid.Column="1"
             Grid.Row="1"
             Name="Sound"
-            Click="button_Click"
+            Click="sound_Click"
             ClickMode="Release"
 
             Content="Sound Test">

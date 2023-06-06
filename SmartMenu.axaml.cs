@@ -23,14 +23,14 @@ public partial class SmartMenu : UserControl, ActiveControl, IReactiveObject
     public SmartMenu()
     {
         InitializeComponent();
-        control = new();
-        nodeList = control.getNodes();
+        //control = new();
+        //nodeList = control.getNodes();
         
-        control.NewNodeAdded += ControlOnNewNodeAdded;
-        control.NodeDataChanged += ControlOnNodeDataChanged;
+        //control.NewNodeAdded += ControlOnNewNodeAdded;
+        //control.NodeDataChanged += ControlOnNodeDataChanged;
         
         //set internal list as source
-        this.SmartItems.ItemsSource = nodeList.NodeList;
+        //this.SmartItems.ItemsSource = nodeList.NodeList;
     }
 
     private void ControlOnNodeDataChanged(Node n)
@@ -71,17 +71,6 @@ public partial class SmartMenu : UserControl, ActiveControl, IReactiveObject
         //for testing if the popups work at all
         ToggleSwitch? tog = sender as ToggleSwitch;
         Console.WriteLine(tog.Name);
-        IMsBoxWindow<ButtonResult>? dialog = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(
-            new MessageBoxStandardParams
-            {
-                ButtonDefinitions = ButtonEnum.YesNo,
-                ContentTitle = "New Node",
-                ContentHeader = "New Node Detected",
-                ContentMessage = "A new node has been detected, would you like to add it?",
-                Icon = Icon.Warning
-            });
-        Task T = dialog.Show();
-        T.Wait();
-        Console.WriteLine(T.Status);
+        
     }
 }

@@ -75,12 +75,16 @@ public class IotControl
                                 ContentMessage = "A new node has been detected, would you like to add it?",
                                 Icon = Icon.Warning
                             });
-                        Task T = dialog.Show();
-                        T.Wait();
-                        Console.WriteLine(T.Status);
-                        //if output of popup
-                        addNode(client);
-                        NewNodeAdded?.Invoke(client);
+                        Task<ButtonResult> T = dialog.Show();
+                        //wait on dialog asynchronously to prevent locking the render thread
+                        Task.Run(() =>
+                        {
+                            T.Wait();
+                            Console.WriteLine(T.Result.ToString());
+                            if (T.Result != ButtonResult.Yes) return;
+                            addNode(client);
+                            NewNodeAdded?.Invoke(client);
+                        });
                     }
                 }
 
@@ -89,16 +93,21 @@ public class IotControl
         });
     }
 
-    //for the ui sending updates to the backend
+    //for the ui sending updates to the backend, which in turn sends data to the esps
     public void updateNode(Node n)
     {
-        
+        //some code for updating data on the backend
+        //...
+        //send node data to client esp
+        byte[] buf = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(n));
+        _server.Send(buf, new IPEndPoint(n.Ip, 8984));
+
         //TODO: implement function for updating node data, which should raise an event to send it out via udp server
     }
 
-    public Nodes getNodes()
+    public ref Nodes getNodes()
     {
-        return _nodeList;
+        return ref _nodeList;
     }
     
     
