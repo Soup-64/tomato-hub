@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Interactivity;
-using MessageBox.Avalonia.BaseWindows.Base;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
 using ReactiveUI;
 
 namespace avalonia_rider_test;
@@ -23,24 +18,28 @@ public partial class SmartMenu : UserControl, ActiveControl, IReactiveObject
     public SmartMenu()
     {
         InitializeComponent();
-        //control = new();
-        //nodeList = control.getNodes();
+        control = new();
+        nodeList = control.getNodes();
         
-        //control.NewNodeAdded += ControlOnNewNodeAdded;
-        //control.NodeDataChanged += ControlOnNodeDataChanged;
+        control.NewNodeAdded += ControlOnNewNodeAdded;
+        control.NodeDataChanged += ControlOnNodeDataChanged;
         
         //set internal list as source
-        //this.SmartItems.ItemsSource = nodeList.NodeList;
+        this.SmartItems.ItemsSource = nodeList.NodeList;
+
+        control.start(); //actually start the listener
     }
 
     private void ControlOnNodeDataChanged(Node n)
     {
         Console.WriteLine($"Node {n.DevName} changed!");
+        //edit entry in ui
     }
 
     private void ControlOnNewNodeAdded(Node n)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"New node {n.DevName} added!");
+        //add entry in ui
     }
 
     public void changeActive(bool active)
