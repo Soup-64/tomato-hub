@@ -1,84 +1,87 @@
 <UserControl xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:avaloniaRiderTest="clr-namespace:avalonia_rider_test"
-             xmlns:local="clr-namespace:avalonia_rider_test"
-             mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="550"
-             x:Class="avalonia_rider_test.SmartMenu"
-             FontSize="18"
-             FontFamily="Noto Sans"
-             FontWeight="Normal">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:avaloniaRiderTest="clr-namespace:avalonia_rider_test"
+    xmlns:local="clr-namespace:avalonia_rider_test"
+    mc:Ignorable="d" d:DesignWidth="1024" d:DesignHeight="550"
+    x:Class="avalonia_rider_test.SmartMenu"
     
+    FontSize="18"
+    FontFamily="Noto Sans"
+    FontWeight="Normal">
+
     <UserControl.Styles>
         <Style Selector="Border">
-            <Setter Property="BorderBrush" Value="#C44536"/>
-            <Setter Property="BorderThickness" Value="5"/>
-            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="BorderBrush" Value="#C44536" />
+            <Setter Property="BorderThickness" Value="5" />
+            <Setter Property="CornerRadius" Value="10" />
         </Style>
         <Style Selector="TextBlock">
-            <Setter Property="Background" Value="#EDDDD4"/>
-            <Setter Property="Foreground" Value="#2A2E32"/>
-            <Setter Property="TextAlignment" Value="Center"/>
-            <Setter Property="TextWrapping" Value="Wrap"/>
-            <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="IsEnabled" Value="False"/>
+            <Setter Property="Background" Value="#EDDDD4" />
+            <Setter Property="Foreground" Value="#2A2E32" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="IsEnabled" Value="False" />
         </Style>
         <Style Selector="StackPanel">
-            <Setter Property="HorizontalAlignment" Value="Left"/>
-            <Setter Property="Spacing" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="Spacing" Value="0" />
         </Style>
         <Style Selector="Grid">
-            <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="Background" Value="#EDDDD4" />
         </Style>
         <Style Selector="Button">
-            <Setter Property="BorderBrush" Value="#C44536"/>
-            <Setter Property="Foreground" Value="#2A2E32"/>
-            <Setter Property="BorderThickness" Value="5"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="BorderBrush" Value="#C44536" />
+            <Setter Property="Foreground" Value="#2A2E32" />
+            <Setter Property="BorderThickness" Value="5" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Background" Value="#EDDDD4" />
         </Style>
         <Style Selector="ToggleButton">
-            <Setter Property="BorderBrush" Value="#C44536"/>
-            <Setter Property="Foreground" Value="#2A2E32"/>
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="BorderThickness" Value="5"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Background" Value="#EDDDD4"/>
+            <Setter Property="BorderBrush" Value="#C44536" />
+            <Setter Property="Foreground" Value="#2A2E32" />
+            <Setter Property="CornerRadius" Value="10" />
+            <Setter Property="BorderThickness" Value="5" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Background" Value="#EDDDD4" />
         </Style>
     </UserControl.Styles>
 
-    
-        <UserControl.DataTemplates>
+    <ItemsControl x:Name="SmartItems" Focusable="False">
+        <ItemsControl.DataTemplates>
             <DataTemplate DataType="{x:Type local:SmartUiItem}">
                 <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
-                        <TextBlock Grid.Column="0">Name: </TextBlock>
-                        <TextBlock Grid.Column="1" Text="{Binding name}"/>
-                        <TextBlock Grid.Column="2" Text="{Binding status}"/>
-                        <ToggleSwitch Grid.Column="3" Name="{Binding name}" IsChecked="{Binding toggle}" Click="Button_OnClick"/>
-                    </Grid>
+                    <TextBlock Grid.Column="0">Name: </TextBlock>
+                    <TextBlock Grid.Column="1" Text="{Binding name}" />
+                    <TextBlock Grid.Column="2" Text="{Binding status}" />
+                    <ToggleSwitch Grid.Column="3" Name="{Binding name}" IsChecked="{Binding toggle}"
+                        Click="Button_OnClick" />
+                </Grid>
             </DataTemplate>
             <DataTemplate DataType="{x:Type local:Node}">
                 <Grid ColumnDefinitions="Auto,Auto,Auto,Auto" RowDefinitions="Auto" Margin="15">
-                    <TextBlock Grid.Column="0" Text="{Binding DevName}"/>
-                    <TextBlock Grid.Column="1" Text="{Binding IdNum}"/>
-                    <TextBlock Grid.Column="2" Text="{Binding Status}"/>
-                    <ToggleSwitch Grid.Column="3" Name="{Binding DevName}" IsChecked="{Binding activated}" Click="Button_OnClick"/>
+                    <TextBlock Grid.Column="0" Text="{Binding DevName}" />
+                    <TextBlock Grid.Column="1" Text="{Binding IdNum}" />
+                    <TextBlock Grid.Column="2" Text="{Binding Status}" />
+                    <ToggleSwitch Grid.Column="3" Name="{Binding IdNum}"
+                        IsChecked="{Binding activated}" Click="Button_OnClick" />
                 </Grid>
             </DataTemplate>
-        </UserControl.DataTemplates>
-    
-    <ItemsControl x:Name="SmartItems" Focusable="False" />
-    
+        </ItemsControl.DataTemplates>
+    </ItemsControl>
+
     <!-- <local:SmartUiItem toggle="True" name="Device" status="Offline" />
 
      <StackPanel Orientation="Vertical" x:Name="Panel">
          
      </StackPanel>-->
-    
+
     <!--
-    <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" x:Name="controlGrid" >
+    <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*" ShowGridLines="True" x:Name="controlGrid"
+    >
             <Grid RowDefinitions="40,70" ColumnDefinitions="256,256" x:Name="devLight">
                 <TextBlock Grid.Row="0" Grid.Column="0"
                                        x:Name="devName" 

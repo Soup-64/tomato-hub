@@ -4,11 +4,12 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 using Avalonia.Controls;
 using Avalonia.Threading;
-using MessageBox.Avalonia.BaseWindows.Base;
-using MessageBox.Avalonia.DTO;
-using MessageBox.Avalonia.Enums;
+using MsBox.Avalonia.Base;
+using MsBox.Avalonia.Dto;
+using MsBox.Avalonia.Enums;
 using Newtonsoft.Json;
 
 namespace avalonia_rider_test;
@@ -35,13 +36,19 @@ public class IotControl
             ? JsonConvert.DeserializeObject<Nodes>(File.ReadAllText(@"./nodes.json"))
             : new Nodes();
 
+        //clients send to server on port 8984, server sends updates to client on port 8985
         _server = new UdpClient(8984);
-        _client = new IPEndPoint(IPAddress.Any, 0);
+        _client = new IPEndPoint(IPAddress.Any, 8984);
         _shouldRun = true;
     }
 
     public async void start()
     {
+        if (_nodeList is null)
+        {
+            Console.WriteLine("class not properly initialized!");
+            return;
+        }
         //loop to handle connections
         await Task.Run(function: () =>
         {
@@ -54,23 +61,30 @@ public class IotControl
 
 
                 Console.WriteLine($"{_resp} from {_client.Address}");
+                // XmlSerializer ser = new(typeof(Node));
+                // Node foundClient = ser.Deserialize(new MemoryStream(_buff)) as Node;
                 //send whole ass nodes to the esp for updating stuff
-                Node foundClient = JsonConvert.DeserializeObject<Node>(_resp);
-                foundClient.Ip = _client.Address;
+                Node foundClient = JsonConvert.DeserializeObject<Node>(_resp) ?? throw new InvalidOperationException();
+                foundClient.Ip = _client.Address.ToString();
 
+                bool found = false;
                 for (int i = 0; i < _nodeList.NodeList.Count; i++)
                 {
-                    if (_nodeList.NodeList[i].IdNum.Equals(foundClient.IdNum))
+                    if (_nodeList.NodeList[i]!.IdNum == foundClient.IdNum)
                     {
+                        int index = _nodeList.NodeList[i].index;
+                        foundClient.index = index;
                         _nodeList.NodeList[i] = foundClient; //sync if exists
                         //raise node change event with node
-                        NodeDataChanged?.Invoke(_nodeList.NodeList[i]);
-                    }
-                    else
-                    {
-                        newNode(foundClient);
+                        NodeDataChanged?.Invoke(_nodeList.NodeList[i]!);
+                        found = true;
                         break;
                     }
+                }
+
+                if (!found)
+                {
+                    newNode(foundClient);
                 }
 
 
@@ -80,7 +94,7 @@ public class IotControl
         });
     }
 
-    public void newNode(Node found)
+    private void newNode(Node found)
     {
         {
             Console.WriteLine("ERROR! node does not exist!");
@@ -88,10 +102,9 @@ public class IotControl
             //wait on dialog asynchronously to prevent locking the render thread
             Task.Run(async () =>
             {
-
                 ButtonResult b = await Dispatcher.UIThread.InvokeAsync(() =>
                 {
-                    IMsBoxWindow<ButtonResult>? dialog = MessageBox.Avalonia.MessageBoxManager.GetMessageBoxStandardWindow(
+                    IMsBox<ButtonResult>? dialog = MsBox.Avalonia.MessageBoxManager.GetMessageBoxStandard(
                     new MessageBoxStandardParams
                     {
                         ButtonDefinitions = ButtonEnum.YesNo,
@@ -100,15 +113,16 @@ public class IotControl
                         ContentMessage = "A new node has been detected, would you like to add it?",
                         Icon = Icon.Warning
                     });
-                    return dialog.Show();
+                    return dialog.ShowAsync();
                 }, DispatcherPriority.MaxValue);
+
 
 
                 Console.WriteLine(b.ToString());
                 if (b != ButtonResult.Yes) return;
                 addNode(found);
-                NewNodeAdded?.Invoke(found);
                 saveNodes();
+                NewNodeAdded?.Invoke(found);
             });
         }
     }
@@ -116,18 +130,31 @@ public class IotControl
     //for the ui sending updates to the backend, which in turn sends data to the esps
     public void updateNode(Node n)
     {
-        //some code for updating data on the backend
-        //...
-        //send node data to client esp
-        byte[] buf = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(n));
-        _server.Send(buf, new IPEndPoint(n.Ip, 8984));
+        for (int i = 0; i < _nodeList.NodeList.Count; i++)
+        {
+            if (n.IdNum == _nodeList.NodeList[i].IdNum)
+            {
+                _nodeList.NodeList[i] = n;
+
+                if (_nodeList.NodeList[i].Ip is null){
+                    Console.WriteLine("Could not contact device!");
+                    return;
+                }
+
+                //send node data to client esp
+                byte[] buf = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(_nodeList.NodeList[i]));
+                Console.WriteLine(_nodeList.NodeList[i].Ip);
+                _server.Send(buf, new IPEndPoint(IPAddress.Parse(_nodeList.NodeList[i].Ip), 8985));
+                return;
+            }
+        }
 
         //TODO: implement function for updating node data, which should raise an event to send it out via udp server
     }
 
     public ref Nodes getNodes()
     {
-        return ref _nodeList;
+        return ref _nodeList!;
     }
 
 
@@ -139,8 +166,9 @@ public class IotControl
 
     private bool saveNodes()
     {
-        string output = JsonConvert.SerializeObject(_nodeList);
-        Console.WriteLine(output);
+        //this hangs if the IPaddress class is used
+        string output = JsonConvert.SerializeObject(_nodeList, Formatting.Indented);
+        Console.WriteLine($"saving...\n{output}");
         try
         {
             File.WriteAllText(@"./nodes.json", output);

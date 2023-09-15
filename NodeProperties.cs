@@ -9,14 +9,16 @@ public class Node
 {
     public int IdNum { set; get; }
     public string DevName { set; get; }
-    public IPAddress Ip { set; get; }
+    public string Ip { set; get; }
     public NodeStatus Status { set; get; }
     public bool activated { set; get; }
-    
+    public int index { set; get; } //used in keeping track of items on ui list
+
     public Node(int idNum, string devName)
     {
         this.IdNum = idNum;
         this.DevName = devName;
+        index = -1;
     }
 }
 
@@ -26,7 +28,7 @@ public class LightNode : Node
 
     public LightNode(int idNum, string devName) : base(idNum, devName)
     {
-        
+
     }
 }
 
@@ -36,7 +38,7 @@ public class RgbNode : LightNode
 
     public RgbNode(int idNum, string devName) : base(idNum, devName)
     {
-        
+
     }
 }
 
@@ -48,9 +50,9 @@ public class SensorNode : Node
 
     public SensorNode(int idNum, string devName) : base(idNum, devName)
     {
-        
+
     }
-    
+
     public SensorNode(int idNum, string devName, string[] valNames, string[] valUnits) : base(idNum, devName)
     {
         this.ValNames = valNames;
@@ -73,20 +75,20 @@ public class Nodes
 //probably can remove, since actual types of boxed classes are exposed
 public enum NodeType
 {
-    Light       =   0,
-    RgbLight    =   1,
-    Sensor      =   2,
-    Remote      =   3,
+    Light = 0,
+    RgbLight = 1,
+    Sensor = 2,
+    Remote = 3,
 }
 
 //enum for status return codes
 public enum NodeStatus
 {
-    NoInit      =   0,  //default
-    IoErr       =   1,  //device connected, NodeData corrupted/unreadable
-    CommErr     =   2,  //device paired, no communication back
-    SensorErr   =   3,  //device connected, could not return sensor NodeData
-    UnknownErr  =   4,  //who knows, surely not me
-    NotReady    =   5,  //init still in progress
-    Ok          =   6   //no issues
+    NoInit = 0,  //default
+    IoErr = 1,  //device connected, NodeData corrupted/unreadable
+    CommErr = 2,  //device paired, no communication back
+    SensorErr = 3,  //device connected, could not return sensor NodeData
+    UnknownErr = 4,  //who knows, surely not me
+    NotReady = 5,  //init still in progress
+    Ok = 6   //no issues
 }

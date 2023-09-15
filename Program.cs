@@ -19,23 +19,23 @@ namespace avalonia_rider_test
         {
 #if DEBUG
             //creating stuff
-            Nodes n = new()
-            {
-                NodeList =
-                {
-                    new LightNode(123, "somelight"),
-                    new RgbNode(456, "balls")
-                }
-            };
-            n.NodeList[0].Status = NodeStatus.Ok;
+            // Nodes n = new()
+            // {
+            //     NodeList =
+            //     {
+            //         new LightNode(123, "somelight"),
+            //         new RgbNode(456, "balls")
+            //     }
+            // };
+            // n.NodeList[0].Status = NodeStatus.Ok;
             
-            //serialize class, will have to empty out stuff that shouldn't be saved or
-            //remember to change it next run, or make more complex node props that splits this up more
-            string output = JsonConvert.SerializeObject(n);
-            Console.WriteLine(output);
+            // //serialize class, will have to empty out stuff that shouldn't be saved or
+            // //remember to change it next run, or make more complex node props that splits this up more
+            // string output = JsonConvert.SerializeObject(n, Formatting.Indented);
+            // Console.WriteLine(output);
             
-            //replaces all text with new serialized data
-            File.WriteAllText(@"./nodes.json", output);
+            // //replaces all text with new serialized data
+            // File.WriteAllText(@"./nodes.json", output);
 #endif
 
 #if !DEBUG
