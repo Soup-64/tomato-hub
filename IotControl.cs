@@ -37,8 +37,8 @@ public class IotControl
             : new Nodes();
 
         //clients send to server on port 8984, server sends updates to client on port 8985
-        _server = new UdpClient(8984);
-        _client = new IPEndPoint(IPAddress.Any, 8984);
+        _server = new UdpClient(58984);
+        _client = new IPEndPoint(IPAddress.Any, 58984);
         _shouldRun = true;
     }
 
@@ -65,6 +65,7 @@ public class IotControl
                 // Node foundClient = ser.Deserialize(new MemoryStream(_buff)) as Node;
                 //send whole ass nodes to the esp for updating stuff
                 Node foundClient = JsonConvert.DeserializeObject<Node>(_resp) ?? throw new InvalidOperationException();
+                Console.WriteLine(foundClient.GetType());
                 foundClient.Ip = _client.Address.ToString();
 
                 bool found = false;
@@ -144,7 +145,7 @@ public class IotControl
                 //send node data to client esp
                 byte[] buf = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(_nodeList.NodeList[i]));
                 Console.WriteLine(_nodeList.NodeList[i].Ip);
-                _server.Send(buf, new IPEndPoint(IPAddress.Parse(_nodeList.NodeList[i].Ip), 8985));
+                _server.Send(buf, new IPEndPoint(IPAddress.Parse(_nodeList.NodeList[i].Ip), 58985));
                 return;
             }
         }
